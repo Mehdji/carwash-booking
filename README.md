@@ -1,5 +1,18 @@
 # Car Wash Booking Application
-![Landing screenshot](../assets/landing_desk.png)
+
+## 🖥️ Application Preview
+
+### Landing Page
+![Landing screenshot](assets/landing_desk.png)
+
+### Schedule Management
+![Schedule changing demonstration](assets/change_schedule.gif)
+
+### Payment Process  
+![Payment process demonstration](assets/payment_accepted.gif)
+
+---
+
 This project is a booking application designed for a car wash company.
 The goal is to allow customers to book a car wash service online and enable the company to manage reservations efficiently.
 
@@ -17,7 +30,7 @@ The goal is to allow customers to book a car wash service online and enable the 
 ## Documentation
 - Requirements specification: `docs/requirements specification/`
 - User stories & business rules: `docs/Functional specification/`
-- UI mockups and wireframes: `maquettes/`
+- UI mockups and wireframes: `mockup/`
 - Planning and backlog: `planning/`
 
 ## Tech Stack (planned)
