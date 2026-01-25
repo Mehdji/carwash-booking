@@ -1,0 +1,16 @@
+#Docker compose for A95C DB
+services:
+  db:
+    image: postgres:16
+    container_name: auto95_db
+    environment:
+      POSTGRES_USER: auto95
+      POSTGRES_PASSWORD: auto95pass
+      POSTGRES_DB: auto95clean
+    ports:
+      - "5432:5432"
+    volumes:
+      - auto95_pgdata:/var/lib/postgresql/data
+
+volumes:
+  auto95_pgdata:
