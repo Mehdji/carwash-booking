@@ -1,11 +1,28 @@
+/*C'est un import virtuel, impossible d'ouvrir ce fichier importé*/
+@import "tailwindcss";
+@import "@fontsource/inter/300.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+
+/*Ajout de variable pour le theme; font et couleurs*/
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;;
+  --color-blue-text: #009FE3;
+  --color-blue-text-hover: #00CCE3;
+  --color-antracite: #0D0D0D;
+
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,21 +30,27 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/*
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
 }
+  */
+
+  /*
 a:hover {
   color: #535bf2;
 }
-
+*/
 body {
+  
   margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: #000000;
 }
 
 h1 {
@@ -46,9 +69,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+/*
 button:hover {
   border-color: #646cff;
 }
+*/
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
