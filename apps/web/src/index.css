@@ -16,8 +16,10 @@
   --color-black-service: #0A0A0A;
   --color-card: #111111;
   --color-pourquoi: #101010;
+  --color-footer: #0B0B0B;
   --color-square_price: #007BFF;
-
+  --color-text-gray-seventy: #BFBFBFC4;
+  --color-text-gray-sixtyfive: #BFBFBFA6;
 }
 /*
 @layer utilities {

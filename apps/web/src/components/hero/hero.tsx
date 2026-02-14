@@ -17,7 +17,7 @@ const hero = ()=>{
         <div className="relative text-center">
             <img className="w-screen h-auto mask-b-from-70% mask-b-to-100% " src={hero_bkgnd_pict_resize}/>
             <div className="w-full absolute top-30 left-0 text-center mt-10">
-      <h1 className="text-7xl font-bold font-display  text-white text-center">
+      <h1 id="hero" className="text-7xl font-bold font-display  text-white text-center">
          Réserver votre lavage auto en ligne
       </h1>
       <h2 className="text-3xl mt-5  font-display text-stone-400 text-center">

@@ -4,6 +4,7 @@ import Hero from "./components/hero/hero";
 import Services from "./components/services/services";
 import Formules from "./components/formules/formules";
 import Pourquoi from "./components/pourquoi/pourquoi";
+import Footer from "./components/footer/footer";
 
 
 
@@ -17,6 +18,7 @@ export default function App() {
       <Services/>
       <Formules/>
       <Pourquoi/>
+      <Footer/>
       
     </div>
   );

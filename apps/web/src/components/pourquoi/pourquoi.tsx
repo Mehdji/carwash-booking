@@ -5,7 +5,7 @@ const Pourquoi = ()=>{
     return(
         <div className="bg-pourquoi h-screen  ">
             <div className="container_services flex flex-col items-center h-full justify-center gap-20">
-                <h1 className="text-white text-5xl font-bold text-center py-5 my-10 ">Pourquoi nous choisir?</h1>
+                <h1 id="pourquoi" className="text-white text-5xl font-bold text-center py-5 my-10 ">Pourquoi nous choisir?</h1>
                 <div className="cards_container flex flex-row w-7xl text-center mx-auto">
                    <Card
                         icon_card = {
