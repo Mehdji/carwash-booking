@@ -11,10 +11,10 @@ const silver_platinium: string[] = ["Jantes","Pneus","Cire de finition","Séchag
 
 const formules = ()=>{
     return(
-        <div className="bg-antracite  h-screen   ">
-            <div className="container_services flex flex-col items-center h-full justify-center gap-20">
-                <h1 id="formules" className="text-white text-5xl font-bold text-center py-5 my-10 ">Nos formules</h1>
-                <div className="cards_container flex flex-row w-7xl text-center mx-auto">
+        <div className="bg-antracite  h-screen pt-10  ">
+            <div className="container_services pt-15 flex flex-col items-center h-full justify-items-start gap-20">
+                <h1 id="formules" className="text-white text-5xl font-bold text-center py-0 my-10 ">Nos formules</h1>
+                <div className="cards_container m flex flex-row w-7xl text-center mx-auto">
                     <Card 
                         price_1={<Price text="40€"/>}
                         type_vehicle_1={<TypeVehicle text="Citadine"/> }

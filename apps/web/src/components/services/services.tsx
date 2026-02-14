@@ -2,8 +2,8 @@ import Card, { Description, Icon_card, Title } from "../card/card";
 
 const services = ()=>{
     return(
-        <div className="bg-black-service   h-screen   "  >
-            <div className="container_services flex flex-col items-center h-full justify-center gap-20">
+        <div className="bg-black-service   h-lvh   "  >
+            <div className="container_services flex flex-col items-center h-full justify-items-start gap-20">
                 <h1 id="services" className="text-white text-5xl font-bold text-center py-5 my-10  ">Nos services</h1>
                 <div className="cards_container flex flex-row w-7xl text-center mx-auto  ">
                     <Card

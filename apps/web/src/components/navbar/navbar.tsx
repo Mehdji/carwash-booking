@@ -21,7 +21,7 @@ const Navbar = ()=>{
             <div className="relative px-5 h-20 flex flex-row justify-items-start gap-12
   after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
                 <div className="navbar-left">
-                    <a href="#hero" className="logo scroll-smooth">
+                    <a href="/" className="logo">
                         <img className="h-20 w-auto object-contain" src={logo} alt="logo" />
                     </a>
                 </div>
