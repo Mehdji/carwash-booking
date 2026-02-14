@@ -1,5 +1,9 @@
 
 import Navbar from "./components/navbar/navbar";
+import Hero from "./components/hero/hero";
+import Services from "./components/services/services";
+import Formules from "./components/formules/formules";
+import Pourquoi from "./components/pourquoi/pourquoi";
 
 
 
@@ -7,9 +11,13 @@ export default function App() {
   
 
   return(
-    <div>
+    <div >
       <Navbar/>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam repudiandae harum dignissimos amet excepturi molestiae cumque, ipsa esse quia temporibus voluptate alias magni nostrum ullam asperiores quod voluptatum a? Est!</p>
+      <Hero/>
+      <Services/>
+      <Formules/>
+      <Pourquoi/>
+      
     </div>
   );
 }
