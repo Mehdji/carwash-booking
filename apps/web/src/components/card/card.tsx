@@ -45,7 +45,7 @@ const card = ({logo,title, subtitle, description, imageUrl}:Props)=>{
 }
 */
 
-const card = ({icon_card, title, description,height = 320}:CardProps)=>{
+const Card = ({icon_card, title, description,height = 320}:CardProps)=>{
     return(
         
         <div className="bg-card w-sm rounded-2xl mx-auto shadow-xl shadow-black "
@@ -66,4 +66,4 @@ const card = ({icon_card, title, description,height = 320}:CardProps)=>{
         </div>
     );
 }
-export default card;
+export default Card;

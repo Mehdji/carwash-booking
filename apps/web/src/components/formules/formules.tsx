@@ -9,7 +9,7 @@ const silver_gold: string[] = ["Jantes","Shampouing","Cire de finition","Séchag
 const silver_platinium: string[] = ["Jantes","Pneus","Cire de finition","Séchage","Vitres","Plastiqes","Tapis","Shampouinage tissus"];
 
 
-const formules = ()=>{
+const Formules = ()=>{
     return(
         <div className="bg-antracite  h-screen pt-10  ">
             <div className="container_services pt-15 flex flex-col items-center h-full justify-items-start gap-20">
@@ -57,4 +57,4 @@ const formules = ()=>{
     );
 }
 
-export default formules;
+export default Formules;

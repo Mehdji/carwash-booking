@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import type { DetailedHTMLProps, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface prices_typeOfCar {
     price_1: React.ReactNode,
@@ -37,7 +37,7 @@ export const Description = ({ list }: { list: Array<String> }) => {
 
 
 
-const prices_cards = ({price_1,type_vehicle_1, price_2, type_vehicle_2,price_3, type_vehicle_3,title,icon,description}:prices_typeOfCar)=>{
+const FormuleCard = ({price_1,type_vehicle_1, price_2, type_vehicle_2,price_3, type_vehicle_3,title,icon,description}:prices_typeOfCar)=>{
 
     return(
         <div className="flex flex-col h-[500] gap-5 py-10 items-center bg-card w-sm rounded-2xl mx-auto shadow-xl shadow-black">
@@ -77,4 +77,4 @@ const prices_cards = ({price_1,type_vehicle_1, price_2, type_vehicle_2,price_3, 
 
 }
 
-export default prices_cards
+export default FormuleCard

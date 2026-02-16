@@ -7,11 +7,10 @@
  * @returns {JSX.Element} Section hero avec overlay de texte sur image
  */
 
-import hero_bkgnd_pict from "../../assets/u1484863334_ultra_realistic_black_luxury_car_in_dark_studio_l_f798993d-24ea-490d-af96-6f913a8d1c21_2.png";
 import hero_bkgnd_pict_resize from "../../assets/u1484863334_ultra_realistic_black_luxury_car_in_dark_studio_l_f798993d-24ea-490d-af96-6f913a8d1c21_2_trimmed_enhanced_resolution_2.png";
 
 
-const hero = ()=>{
+const Hero = ()=>{
 
     return(
         <div className="relative text-center">
@@ -32,4 +31,4 @@ const hero = ()=>{
 
 }
 
-export default hero;
+export default Hero;

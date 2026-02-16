@@ -28,10 +28,10 @@ const Navbar = ()=>{
             
                 <div className="navbar-center w-full ">
                     <ul className ="nav-links h-20  flex items-center justify-around space-x-10 gap-5 ">
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-2xl transition-transform hover:scale-125 scroll-smooth " href ="#services">Services</a>
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-2xl transition-transform hover:scale-125" href ="#formules">Formules&Tarifs</a>
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-2xl transition-transform hover:scale-125" href ="#pourquoi">Pourquoi nous choisir?</a>
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-2xl transition-transform hover:scale-125" href ="">Se connecter</a>
+                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125 scroll-smooth " href ="#services">Services</a>
+                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="#formules">Formules&Tarifs</a>
+                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="#pourquoi">Pourquoi nous choisir?</a>
+                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="">Se connecter</a>
                     </ul>
                 </div>
             </div>
