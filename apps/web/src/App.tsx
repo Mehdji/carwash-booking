@@ -1,29 +1,15 @@
 
-import Navbar from "./components/navbar/navbar";
-import Hero from "./components/hero/hero";
-import Services from "./components/services/services";
-import Formules from "./components/formules/formules";
-import Pourquoi from "./components/pourquoi/pourquoi";
-import Footer from "./components/footer/footer";
-import Cta from "./components/cta/cta";
-
-
+import { Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/landing-page";
+import Login from "./components/login/login";
 
 export default function App() {
-  
-
-  return(
-    <div >
-      <Navbar/>
-      <Hero/>
-      <Services/>
-      <Formules/>
-      <Pourquoi/>
-      <Cta/>
-      <Footer/>
-      
-      
-      
-    </div>
+  return (
+    
+      <Routes>
+        <Route path="/" element= {<LandingPage/>} />
+        <Route path="/login" element = {<Login/>} />
+      </Routes>
+    
   );
 }

@@ -7,6 +7,7 @@
  * @returns {JSX.Element} Section hero avec overlay de texte sur image
  */
 
+import { Link } from "react-router-dom";
 import hero_bkgnd_pict_resize from "../../assets/u1484863334_ultra_realistic_black_luxury_car_in_dark_studio_l_f798993d-24ea-490d-af96-6f913a8d1c21_2_trimmed_enhanced_resolution_2.png";
 
 
@@ -22,9 +23,9 @@ const Hero = ()=>{
       <h2 className="text-3xl mt-5  font-display text-stone-400 text-center">
          Choisissez votre créneau, on s’occupe du reste.
       </h2>
-      <button className="mt-10 cursor-pointer bg-blue-text hover:bg-blue-700 text-white font-display text-2xl py-2 px-4 rounded transition-transform hover:scale-125 ">
+      <Link className="mt-10 inline-block cursor-pointer bg-blue-text hover:bg-blue-700 text-white shadow-[0_0_10px_rgba(0,159,227)] hover:shadow-[0_0_40px_rgba(0,159,227)] font-display text-2xl py-2 px-4 rounded transition-all hover:scale-125 " to="/login" >
           Prendre un rendez-vous
-      </button>
+      </Link>
     </div>
         </div>
     );
