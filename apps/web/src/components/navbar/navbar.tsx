@@ -12,6 +12,7 @@
  * @returns {JSX.Element} Element de navigation fixe
  */
 
+import { Link } from "react-router-dom";
 import logo from "../../assets/Logo_no_Bg.png";
 
 const Navbar = ()=>{
@@ -21,7 +22,7 @@ const Navbar = ()=>{
             <div className="relative px-5 h-20 flex flex-row justify-items-start gap-12
   after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
                 <div className="navbar-left">
-                    <a href="/" className="logo">
+                    <a href="#hero" className="logo">
                         <img className="h-20 w-auto object-contain" src={logo} alt="logo" />
                     </a>
                 </div>
@@ -31,7 +32,7 @@ const Navbar = ()=>{
                         <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125 scroll-smooth " href ="#services">Services</a>
                         <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="#formules">Formules&Tarifs</a>
                         <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="#pourquoi">Pourquoi nous choisir?</a>
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="">Se connecter</a>
+                        <Link className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" to="/login" >Se connecter</Link>
                     </ul>
                 </div>
             </div>
