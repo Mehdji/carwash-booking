@@ -1,0 +1,4 @@
+"id_formule","nom","description","duree_estimee_minutes","actif"
+1,"silver","Jantes,Shampoing,Séchage,Vitres,Aspirateur",90,True
+2,"platinium","Jantes,Pneus,Shampoing ,Cire de finition,Séchage,Vitres,Plastiques,Tapis,Shampouinage,tissus",120,True
+3,"gold","Jantes,Shampoing,Cire de finition ,Séchage ,Vitres,Tapis / Moquette ",150,True

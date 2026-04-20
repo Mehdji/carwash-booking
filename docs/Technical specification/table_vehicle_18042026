@@ -1,0 +1,9 @@
+"id_vehicule","marque","modele","immatriculation","id_utilisateur","id_type_vehicule"
+1,"renault","clio","AC-613-ET",1,1
+2,"peugeot","208","BZ-472-KL",2,1
+3,"dacia","sandero","DH-951-MQ",3,2
+4,"toyota","rav4","GN-284-TR",4,3
+5,"nissan","qashqai","JP-639-VC",5,3
+6,"fiat","500","LK-715-NS",6,1
+7,"volkswagen","tiguan","MN-482-RP",7,3
+8,"hyundai","i20","QR-157-TX",8,2

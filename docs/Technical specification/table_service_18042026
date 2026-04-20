@@ -1,0 +1,13 @@
+"id_service","nom","description","actif"
+1,"Jantes","Nettoyage des jantes pour retirer saletés et poussières de frein.",True
+2,"Shampoing","Lavage carrosserie au shampoing auto pour nettoyer en douceur.",True
+3,"Séchage","Séchage manuel pour éviter traces eau et marques.",True
+4,"Vitres","Nettoyage intérieur et extérieur des vitres pour une visibilité nette.",True
+5,"Aspirateur","Aspiration de habitacle, sièges et zones difficiles accès.",True
+6,"Pneus","Nettoyage des flancs et finition des pneus.",True
+7,"Cire de finition","Application une cire de finition pour brillance et protection.",True
+8,"Plastiques","Nettoyage et ravivage des plastiques intérieurs.",True
+9,"Tapis","Nettoyage des tapis de sol pour enlever poussière et taches légères.",True
+10,"Shampouinage","Nettoyage en profondeur des textiles par shampouinage.",True
+11,"Tissus","Entretien des surfaces en tissu pour rafraîchir habitacle.",True
+12,"Tapis / Moquette","Nettoyage combiné des tapis et de la moquette intérieure.",True

@@ -41,6 +41,9 @@ CREATE TABLE creneau(
     CHECK (capacite > 0)
 );
 
+--ALTER TABLE creneau ALTER start_at SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--ALTER TABLE creneau ALTER end_at SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--Ok Done 11/04/26
 
 CREATE TABLE utilisateur(
     id_utilisateur INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -51,14 +54,16 @@ CREATE TABLE utilisateur(
     role role_utilisateur NOT NULL DEFAULT 'CLIENT',
     date_inscription TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     actif BOOLEAN NOT NULL DEFAULT TRUE
-);
+); --TEST INSERT OK 12/04/26
 
+--ALTER TABLE utilisateur ALTER date_inscription SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--Ok Done 11/04/26
 
 CREATE TABLE type_vehicule(
     id_type_vehicule INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     libelle VARCHAR(20) NOT NULL UNIQUE
    
-);
+); --TEST INSERT OK 12/04/26
 
 CREATE TABLE vehicule(
     id_vehicule INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -78,7 +83,7 @@ CREATE TABLE vehicule(
         FOREIGN KEY(id_type_vehicule)
         REFERENCES type_vehicule(id_type_vehicule)
         ON DELETE RESTRICT
-);
+); --TEST INSERT OK 12/04/26
 
 
 
@@ -108,13 +113,16 @@ CREATE TABLE parrainage(
     
 );
 
+--ALTER TABLE parrainage ALTER date_creation SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--Ok Done 11/04/26
+
 CREATE TABLE formule(
     id_formule INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nom VARCHAR(50) NOT NULL UNIQUE,
     description VARCHAR(200) ,
     duree_estimee_minutes INT NOT NULL CHECK (duree_estimee_minutes > 0),
     actif BOOLEAN NOT NULL DEFAULT TRUE
-);
+); --TEST INSERT OK 12/04/26
 
 CREATE TABLE rendez_vous(
     id_rendez_vous INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -152,6 +160,9 @@ CREATE TABLE rendez_vous(
 
 );
 
+--ALTER TABLE rendez_vous ALTER date_creation SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--Ok Done 11/04/26
+
 CREATE TABLE fidelite_mouvement(
     id_mouvement INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     points INT NOT NULL CHECK (points <> 0),
@@ -173,6 +184,9 @@ CREATE TABLE fidelite_mouvement(
         ON DELETE RESTRICT
 );
 
+--ALTER TABLE fidelite_mouvement ALTER date_obtention SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--ALTER TABLE fidelite_mouvement ALTER date_expiration SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--Ok Done 12/04/26
 
 CREATE TABLE paiement(
     id_paiement INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -191,14 +205,15 @@ CREATE TABLE paiement(
         ON DELETE RESTRICT
 );
 
-
+--ALTER TABLE paiement ALTER date_heure SET DATA TYPE TIMESTAMP WITH TIME ZONE
+--Ok Done 12/04/26
 
 CREATE TABLE service(
     id_service INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
     description VARCHAR(200) ,
     actif BOOLEAN NOT NULL DEFAULT TRUE
-);
+); --Ok Done 12/04/26
 
 
 CREATE TABLE tarif(

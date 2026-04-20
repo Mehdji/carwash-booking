@@ -1,0 +1,7 @@
+"id_rendez_vous","date_creation","statut","commentaire","prix_total","id_utilisateur","id_creneau","id_vehicule","id_type_vehicule","id_formule"
+1,"2026-04-19 09:18:38.640062+00","PENDING_PAYMENT","Silver citadine - first booking",40.00,1,1,1,1,1
+2,"2026-04-19 09:18:38.640062+00","CONFIRMED","Platinium citadine confirmed",60.00,2,2,2,1,2
+3,"2026-04-19 09:18:38.640062+00","PENDING_PAYMENT","Silver berline pending payment",60.00,3,3,3,2,1
+4,"2026-04-19 09:18:38.640062+00","CONFIRMED","Gold SUV confirmed",100.00,4,4,4,3,3
+5,"2026-04-19 09:18:38.640062+00","PENDING_PAYMENT","Platinium SUV pending payment",120.00,5,5,5,3,2
+6,"2026-04-19 09:18:38.640062+00","COMPLETED","Gold citadine completed",50.00,6,6,6,1,3
