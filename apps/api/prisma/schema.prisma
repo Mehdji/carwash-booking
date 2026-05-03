@@ -3,24 +3,260 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+//
+// ============================================================
+// CONTEXTE (FR)
+// - Les noms de modeles Prisma sont en PascalCase.
+// - Les champs Prisma sont en camelCase.
+// - Les noms SQL existants (snake_case) sont conserves via @map/@@map.
+// - Les contraintes UNIQUE sont gerees dans Prisma (@unique / @@unique).
+// - Les contraintes CHECK sont gerees en migration SQL (hors schema Prisma).
+//
+// CONTEXT (EN)
+// - Prisma model names use PascalCase.
+// - Prisma field names use camelCase.
+// - Existing SQL names (snake_case) are preserved with @map/@@map.
+// - UNIQUE constraints are handled in Prisma (@unique / @@unique).
+// - CHECK constraints are handled in SQL migrations (outside Prisma schema).
+// ============================================================
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  firstName String?
-  lastName  String?
-  password  String
-  role      String   @default("CLIENT")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum RoleUtilisateur {
+  ADMIN
+  AGENT
+  CLIENT
+
+  @@map("role_utilisateur")
 }
+
+enum StatutRdv {
+  PENDING_PAYMENT
+  CONFIRMED
+  CANCELED
+  EXPIRED
+  COMPLETED
+
+  @@map("statut_rdv")
+}
+
+enum StatutCreneau {
+  libre
+  complet
+  bloque
+  reserve
+
+  @@map("statut_creneau")
+}
+
+enum StatutPaiement {
+  pending
+  succeeded
+  failed
+  canceled
+  expired
+  refunded
+
+  @@map("statut_paiement")
+}
+
+enum StatutParrainage {
+  en_attente
+  valide
+  expire
+
+  @@map("statut_parrainage")
+}
+
+model Creneau {
+  idCreneau  Int           @id @default(autoincrement()) @map("id_creneau")
+  startAt    DateTime      @map("start_at") @db.Timestamptz()
+  endAt      DateTime      @map("end_at") @db.Timestamptz()
+  statut     StatutCreneau @default(libre)
+  capacite   Int
+  rendezVous RendezVous[]
+
+  @@map("creneau")
+}
+
+model Utilisateur {
+  idUtilisateur            Int                 @id @default(autoincrement()) @map("id_utilisateur")
+  prenom                   String?             @db.VarChar(100)
+  nom                      String?             @db.VarChar(150)
+  telephone                String              @unique @db.VarChar(20)
+  passwordHash             String              @map("password_hash") @db.VarChar(255)
+  role                     RoleUtilisateur     @default(CLIENT)
+  dateInscription          DateTime            @default(now()) @map("date_inscription") @db.Timestamptz()
+  actif                    Boolean             @default(true)
+  vehicules                Vehicule[]
+  parrainagesCommeParrain  Parrainage[]        @relation("Parrain")
+  parrainagesCommeParraine Parrainage[]        @relation("Parraine")
+  rendezVous               RendezVous[]
+  fideliteMouvements       FideliteMouvement[]
+
+  @@map("utilisateur")
+}
+
+model TypeVehicule {
+  idTypeVehicule Int          @id @default(autoincrement()) @map("id_type_vehicule")
+  libelle        String       @unique @db.VarChar(20)
+  vehicules      Vehicule[]
+  rendezVous     RendezVous[]
+  tarifs         Tarif[]
+
+  @@map("type_vehicule")
+}
+
+model Vehicule {
+  idVehicule      Int     @id @default(autoincrement()) @map("id_vehicule")
+  marque          String? @db.VarChar(32)
+  modele          String? @map("modele") @db.VarChar(80)
+  immatriculation String? @db.VarChar(20)
+
+  typeVehicule   TypeVehicule @relation(fields: [idTypeVehicule], references: [idTypeVehicule], onDelete: Restrict)
+  utilisateur    Utilisateur  @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Restrict)
+  idUtilisateur  Int          @map("id_utilisateur")
+  idTypeVehicule Int          @map("id_type_vehicule")
+  rendezVous     RendezVous[]
+
+  @@map("vehicule")
+}
+
+model Parrainage {
+  idParrainage Int              @id @default(autoincrement()) @map("id_parrainage")
+  codeOuLien   String?          @map("code_ou_lien") @db.VarChar(40)
+  statut       StatutParrainage @default(en_attente)
+  dateCreation DateTime         @default(now()) @map("date_creation") @db.Timestamptz()
+
+  idParrain  Int @map("id_parrain")
+  idParraine Int @map("id_parraine")
+
+  parrain  Utilisateur @relation("Parrain", fields: [idParrain], references: [idUtilisateur], onDelete: Restrict)
+  parraine Utilisateur @relation("Parraine", fields: [idParraine], references: [idUtilisateur], onDelete: Restrict)
+
+  @@unique([idParrain, idParraine], map: "uq_parrainage_parrain_parraine")
+  @@unique([idParraine], map: "uq_parrainage_parraine_unique")
+  @@map("parrainage")
+}
+
+model Formule {
+  idFormule           Int          @id @default(autoincrement()) @map("id_formule")
+  nom                 String       @unique @db.VarChar(50)
+  description         String?      @db.VarChar(200)
+  dureeEstimeeMinutes Int          @map("duree_estimee_minutes")
+  actif               Boolean      @default(true)
+  rendezVous          RendezVous[]
+  tarifs              Tarif[]
+  inclures            Inclure[]
+
+  @@map("formule")
+}
+
+model RendezVous {
+  idRendezVous Int       @id @default(autoincrement()) @map("id_rendez_vous")
+  dateCreation DateTime  @default(now()) @map("date_creation") @db.Timestamptz()
+  statut       StatutRdv @default(PENDING_PAYMENT)
+  commentaire  String?   @db.VarChar(255)
+  prixTotal    Decimal   @map("prix_total") @db.Decimal(10, 2)
+
+  utilisateur  Utilisateur  @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Restrict)
+  creneau      Creneau      @relation(fields: [idCreneau], references: [idCreneau], onDelete: Restrict)
+  vehicule     Vehicule?    @relation(fields: [idVehicule], references: [idVehicule], onDelete: Restrict)
+  typeVehicule TypeVehicule @relation(fields: [idTypeVehicule], references: [idTypeVehicule], onDelete: Restrict)
+  formule      Formule      @relation(fields: [idFormule], references: [idFormule], onDelete: Restrict)
+
+  idUtilisateur      Int                 @map("id_utilisateur")
+  idCreneau          Int                 @map("id_creneau")
+  idTypeVehicule     Int                 @map("id_type_vehicule")
+  idVehicule         Int?                @map("id_vehicule")
+  idFormule          Int                 @map("id_formule")
+  fideliteMouvements FideliteMouvement[]
+  paiements          Paiement[]
+
+  @@map("rendez_vous")
+}
+
+model FideliteMouvement {
+  idMouvement    Int      @id @default(autoincrement()) @map("id_mouvement")
+  points         Int
+  motif          String?  @db.VarChar(50)
+  dateObtention  DateTime @default(now()) @map("date_obtention") @db.Timestamptz()
+  dateExpiration DateTime @map("date_expiration") @db.Timestamptz()
+
+  utilisateur Utilisateur @relation(fields: [idUtilisateur], references: [idUtilisateur], onDelete: Restrict)
+  rendezVous  RendezVous? @relation(fields: [idRendezVous], references: [idRendezVous], onDelete: Restrict)
+
+  idRendezVous  Int? @map("id_rendez_vous")
+  idUtilisateur Int  @map("id_utilisateur")
+
+  @@map("fidelite_mouvement")
+}
+
+model Paiement {
+  idPaiement       Int            @id @default(autoincrement()) @map("id_paiement")
+  montant          Decimal        @db.Decimal(10, 2)
+  typePaiement     String         @map("type_paiement") @db.VarChar(20)
+  moyen            String         @db.VarChar(20)
+  dateHeure        DateTime       @default(now()) @map("date_heure") @db.Timestamptz()
+  referenceExterne String?        @map("reference_externe") @db.VarChar(255)
+  statut           StatutPaiement @default(pending)
+
+  rendezVous   RendezVous @relation(fields: [idRendezVous], references: [idRendezVous], onDelete: Restrict)
+  idRendezVous Int        @map("id_rendez_vous")
+
+  @@map("paiement")
+}
+
+model Service {
+  idService   Int       @id @default(autoincrement()) @map("id_service")
+  nom         String    @db.VarChar(100)
+  description String?   @db.VarChar(200)
+  actif       Boolean   @default(true)
+  inclures    Inclure[]
+
+  @@map("service")
+}
+
+model Tarif {
+  idTarif Int     @id @default(autoincrement()) @map("id_tarif")
+  prix    Decimal @db.Decimal(10, 2)
+
+  typeVehicule TypeVehicule @relation(fields: [idTypeVehicule], references: [idTypeVehicule], onDelete: Restrict)
+  formule      Formule      @relation(fields: [idFormule], references: [idFormule], onDelete: Restrict)
+
+  idTypeVehicule Int @map("id_type_vehicule")
+  idFormule      Int @map("id_formule")
+
+  @@unique([idFormule, idTypeVehicule], map: "uq_tarif_formule_type_vehicule")
+  @@map("tarif")
+}
+
+model Inclure {
+  idFormule Int     @map("id_formule")
+  formule   Formule @relation(fields: [idFormule], references: [idFormule], onDelete: Cascade)
+  idService Int     @map("id_service")
+  service   Service @relation(fields: [idService], references: [idService], onDelete: Restrict)
+
+  @@id([idFormule, idService])
+  @@map("inclure")
+}
+
+/**
+ * model User {
+ * id        String   @id @default(cuid())
+ * email     String   @unique
+ * firstName String?
+ * lastName  String?
+ * password  String
+ * role      String   @default("CLIENT")
+ * createdAt DateTime @default(now())
+ * updatedAt DateTime @updatedAt
+ * }
+ */
