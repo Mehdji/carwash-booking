@@ -1,9 +1,11 @@
-import { Controller, Get, Param, Body, Post, Delete, Query, Patch } from "@nestjs/common";
+import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, HttpException, HttpStatus } from "@nestjs/common";
 import { UtilisateursService } from "./utilisateurs.service";
 import { Utilisateur, Prisma } from "../../generated/prisma";
 import { $Enums } from "../../generated/prisma/browser";
+import { isNumberString } from 'class-validator'
 import { NotFoundException } from '@nestjs/common';
 import { get } from "http";
+import { UpdateUtilisateurStatusDto } from "./dto/update-utilisateur-status.dto";
 
 @Controller('api/users')
 export class UtilisateursController {
@@ -17,7 +19,7 @@ export class UtilisateursController {
 
     }
 
-    @Get()
+    @Get('getFilteredUtilisateurs')
     async getFilteredUtilisateurs(@Query("searchString") searchString: string): Promise<Utilisateur[]> {
         const parsedDate = new Date(searchString);
         const isValidDate = !Number.isNaN(parsedDate.getTime());
@@ -59,6 +61,7 @@ export class UtilisateursController {
         })
     }
 
+    //TODO A TESTER MAIS PROBABLEMENT A REFACTO AC LES DATA DANS LE BODY DE LA REQUETE EN JSON
     @Post()
     async create(@Body() utilisateurData: {
         prenom?: string | null | undefined;
@@ -88,7 +91,40 @@ export class UtilisateursController {
         })
     }
 
-    @Patch(':id')
+    //TODO AJOUTER UNE PROMISE EN RETOUR ET GERER EXCEPTIONS
+    @Patch(':id/status')
+    async updateStatus(
+        @Param('id', ParseIntPipe) id: number,
+        @Body() updateUtilisateurStatusDto: UpdateUtilisateurStatusDto,
+    ): Promise<Utilisateur> {
+
+        try {
+            return await this.utilisateursService.updateUtilisateur({
+                where: { idUtilisateur: Number(id) },
+                data: { actif: updateUtilisateurStatusDto.actif },
+            });
+        } catch (error) {
+            throw new HttpException({
+                status: HttpStatus.NOT_FOUND,
+                error: `Utilisateur ${id} not found.`,
+            }, HttpStatus.NOT_FOUND, {
+                cause: error
+            }
+
+            );
+        }
+
+
+
+    }
+
+
+
+}
+
+
+/*
+@Patch(':id/status')
     async activateUtilisateur(@Query('parameter') parameter: string, @Param('id') id: string): Promise<Utilisateur> {
         if (parameter === 'deactivate') {
             return this.utilisateursService.updateUtilisateur({
@@ -120,7 +156,4 @@ export class UtilisateursController {
         return user;
 
     }
-
-}
-
-
+*/ 
