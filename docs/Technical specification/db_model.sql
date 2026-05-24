@@ -22,6 +22,7 @@
  - L'ordre de creation des tables compte pour les Foreign Keys.
 ===============================================================================
 */
+CREATE EXTENSION IF NOT EXISTS citext;
 
 CREATE TYPE role_utilisateur AS ENUM ('ADMIN', 'AGENT', 'CLIENT');
 CREATE TYPE statut_rdv AS ENUM ('PENDING_PAYMENT','CONFIRMED','CANCELED','EXPIRED','COMPLETED');
@@ -49,6 +50,7 @@ CREATE TABLE utilisateur(
     id_utilisateur INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     prenom VARCHAR(100),
     nom VARCHAR(150),
+    email CITEXT NOT NULL UNIQUE,
     telephone VARCHAR(20) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     role role_utilisateur NOT NULL DEFAULT 'CLIENT',

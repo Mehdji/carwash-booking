@@ -1,11 +1,12 @@
 import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, HttpException, HttpStatus } from "@nestjs/common";
 import { UtilisateursService } from "./utilisateurs.service";
-import { Utilisateur, Prisma } from "../../generated/prisma";
-import { $Enums } from "../../generated/prisma/browser";
+import { Utilisateur, Prisma } from "@prisma/client";
+import { $Enums } from "@prisma/client";
 import { isNumberString } from 'class-validator'
 import { NotFoundException } from '@nestjs/common';
 import { get } from "http";
 import { UpdateUtilisateurStatusDto } from "./dto/update-utilisateur-status.dto";
+import { CreateUtilisateurDto } from "./dto/create-utilisateur.dto";
 
 @Controller('api/users')
 export class UtilisateursController {
@@ -60,30 +61,24 @@ export class UtilisateursController {
             idUtilisateur: Number(id)
         })
     }
-
-    //TODO A TESTER MAIS PROBABLEMENT A REFACTO AC LES DATA DANS LE BODY DE LA REQUETE EN JSON
-    @Post()
-    async create(@Body() utilisateurData: {
-        prenom?: string | null | undefined;
-        nom?: string | null | undefined;
-        telephone: string;
-        passwordHash: string;
-        role?: $Enums.RoleUtilisateur;
-        dateInscription?: Date | string;
-        actif?: boolean;
-    }): Promise<Utilisateur> {
-        const { prenom, nom, telephone, passwordHash, role, dateInscription, actif } = utilisateurData;
-        return this.utilisateursService.createUtilisateur({
-            prenom,
-            nom,
-            telephone,
-            passwordHash,
-            role,
-            dateInscription,
-            actif
-        })
-    }
-
+    /*
+        //TODO Implémenter password.service.ts pour hash temporairement le password
+        //TODO A TESTER MAIS PROBABLEMENT A REFACTO AC LES DATA DANS LE BODY DE LA REQUETE EN JSON
+        @Post()
+        async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<Utilisateur> {
+            const { prenom, nom, email, telephone, password, role } = utilisateurData;
+            return this.utilisateursService.createUtilisateur({
+                prenom,
+                nom,
+                telephone,
+                email,
+                password,
+                role,
+    
+    
+            })
+        }
+    */
     @Delete(':id')
     async delete(@Param('id') id: string): Promise<Utilisateur> {
         return this.utilisateursService.deleteUtilisateur({

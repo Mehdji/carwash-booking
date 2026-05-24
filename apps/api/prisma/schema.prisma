@@ -22,7 +22,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -91,6 +90,7 @@ model Utilisateur {
   prenom                   String?             @db.VarChar(100)
   nom                      String?             @db.VarChar(150)
   telephone                String              @unique @db.VarChar(20)
+  email                    String              @unique @db.Citext
   passwordHash             String              @map("password_hash") @db.VarChar(255)
   role                     RoleUtilisateur     @default(CLIENT)
   dateInscription          DateTime            @default(now()) @map("date_inscription") @db.Timestamptz()

@@ -1,6 +1,6 @@
-import { IsNumber, IsString, IsEnum } from "class-validator";
-import { $Enums } from "../../../generated/prisma/browser";
-import { RoleUtilisateur } from "../../../generated/prisma";
+import { IsNumber, IsString, IsEnum, IsEmail, MinLength, IsOptional } from "class-validator";
+
+import { RoleUtilisateur } from "@prisma/client";
 
 export class CreateUtilisateurDto {
     @IsString()
@@ -10,10 +10,18 @@ export class CreateUtilisateurDto {
     nom!: string;
 
     @IsNumber()
-    telephone!: number;
+    telephone!: string;
 
+    @IsEmail()
+    email!: string;
+
+    @IsString()
+    @MinLength(13)
+    password!: string;
+
+    @IsOptional()
     @IsEnum(RoleUtilisateur)
-    role!: $Enums.RoleUtilisateur
+    role!: RoleUtilisateur
 
 
 
