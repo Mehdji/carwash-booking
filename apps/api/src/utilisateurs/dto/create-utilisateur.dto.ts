@@ -9,7 +9,7 @@ export class CreateUtilisateurDto {
     @IsString()
     nom!: string;
 
-    @IsNumber()
+    @IsString()
     telephone!: string;
 
     @IsEmail()

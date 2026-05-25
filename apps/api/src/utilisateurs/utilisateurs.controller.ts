@@ -1,10 +1,6 @@
-import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, NotFoundException } from "@nestjs/common";
 import { UtilisateursService } from "./utilisateurs.service";
 import { Utilisateur, Prisma } from "@prisma/client";
-import { $Enums } from "@prisma/client";
-import { isNumberString } from 'class-validator'
-import { NotFoundException } from '@nestjs/common';
-import { get } from "http";
 import { UpdateUtilisateurStatusDto } from "./dto/update-utilisateur-status.dto";
 import { CreateUtilisateurDto } from "./dto/create-utilisateur.dto";
 
@@ -61,29 +57,37 @@ export class UtilisateursController {
             idUtilisateur: Number(id)
         })
     }
-    /*
-        //TODO Implémenter password.service.ts pour hash temporairement le password
-        //TODO A TESTER MAIS PROBABLEMENT A REFACTO AC LES DATA DANS LE BODY DE LA REQUETE EN JSON
-        @Post()
-        async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<Utilisateur> {
-            const { prenom, nom, email, telephone, password, role } = utilisateurData;
-            return this.utilisateursService.createUtilisateur({
-                prenom,
-                nom,
-                telephone,
-                email,
-                password,
-                role,
-    
-    
-            })
-        }
-    */
-    @Delete(':id')
-    async delete(@Param('id') id: string): Promise<Utilisateur> {
-        return this.utilisateursService.deleteUtilisateur({
-            idUtilisateur: Number(id)
+
+    //TODO Implémenter password.service.ts pour hash temporairement le password
+    //TODO A TESTER MAIS PROBABLEMENT A REFACTO AC LES DATA DANS LE BODY DE LA REQUETE EN JSON
+    @Post()
+    async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<Utilisateur> {
+        const { prenom, nom, telephone, email, password, role } = utilisateurData;
+        return this.utilisateursService.createUtilisateur({
+            prenom,
+            nom,
+            telephone,
+            email,
+            password,
+            role,
+
+
         })
+    }
+
+    @Delete(':id')
+    async delete(@Param('id', ParseIntPipe) id: number): Promise<Utilisateur> {
+        try {
+            return await this.utilisateursService.deleteUtilisateur({
+                idUtilisateur: id
+            });
+        } catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+                throw new NotFoundException(`Utilisateur ${id} not found.`);
+            }
+
+            throw error;
+        }
     }
 
     //TODO AJOUTER UNE PROMISE EN RETOUR ET GERER EXCEPTIONS
@@ -95,18 +99,15 @@ export class UtilisateursController {
 
         try {
             return await this.utilisateursService.updateUtilisateur({
-                where: { idUtilisateur: Number(id) },
+                where: { idUtilisateur: id },
                 data: { actif: updateUtilisateurStatusDto.actif },
             });
         } catch (error) {
-            throw new HttpException({
-                status: HttpStatus.NOT_FOUND,
-                error: `Utilisateur ${id} not found.`,
-            }, HttpStatus.NOT_FOUND, {
-                cause: error
+            if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+                throw new NotFoundException(`Utilisateur ${id} not found.`);
             }
 
-            );
+            throw error;
         }
 
 
