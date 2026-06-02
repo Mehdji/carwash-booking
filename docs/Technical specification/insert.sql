@@ -29,15 +29,37 @@
  - [x] inclure
 ===============================================================================
 */
-INSERT INTO utilisateur (prenom, nom, telephone, password_hash) VALUES
-    ('Mohamed', 'ALI', '0677898684', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$5Y8dkK7hFi6xuUNbsytCe6mRG387Eblxjr8dTo1tcAU'),
-    ('Dante', 'ALIGHIERI', '0687586325', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$3i8Pv7/tOYinNMT4Ek9omzxccq0pE2nNxtSPrgWwznM'),
-    ('Sofia', 'MARTIN', '0601020304', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$WJMS0f37JxkQbVf3FZ6W2L8Hf5cQhQ9lGQySAnM9mBw'),
-    ('Lucas', 'BERNARD', '0602030405', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$S5NfY8f8Qp8zTw3o9tK2pI9MVv0V7vWZV9i2eV6X4rA'),
-    ('Emma', 'DUBOIS', '0603040506', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$V3nq0n6rj8kC8QnW0M4jJfQ8bE9g3zK2wQ8fQf5U2rQ'),
-    ('Hugo', 'THOMAS', '0604050607', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$M4nV1hF9sN7QxX3Jk7wP9lA2xC6gQ9zN4kB8mW3qR1Y'),
-    ('Lea', 'ROBERT', '0605060708', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$K7jD8sQ3lM4nP9qR2wT5yH6uV1xZ8cB3mN6pQ2rW9tY'),
-    ('Noah', 'RICHARD', '0606070809', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$Q2wE4rT6yU8iO0pA3sD5fG7hJ9kL1zX3cV5bN7mM9qW');
+-- Password (plaintext): Mohamed#A95Z1
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Mohamed', 'ALI', 'mohamed.ali@auto95clean.test', '0677898684', '$argon2id$v=19$m=19456,t=2,p=1$WrGG+vF33lkZi/D3+0pPTA$T0hRuQ4JKdSrQAnc2aG5er/5lrdUMPilRhepsq7MyGg');
+
+-- Password (plaintext): Dante#A95Z123
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Dante', 'ALIGHIERI', 'dante.alighieri@auto95clean.test', '0687586325', '$argon2id$v=19$m=19456,t=2,p=1$o8hfTLdDAUjTWuIzRrIJtA$NMEtIMTcsFYYDCZokZKN7890F6d2uSEpLWJXKagfXK4');
+
+-- Password (plaintext): Sofia#A95Z123
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Sofia', 'MARTIN', 'sofia.martin@auto95clean.test', '0601020304', '$argon2id$v=19$m=19456,t=2,p=1$DMmd5V1vFP3Hi5hb0e5LPw$UpozLgh5DcfffADeZ7RHd7kgU9h5DX3+hbAcHy4RN/k');
+
+-- Password (plaintext): Lucas#A95Z123
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Lucas', 'BERNARD', 'lucas.bernard@auto95clean.test', '0602030405', '$argon2id$v=19$m=19456,t=2,p=1$H9c60jgLzaljdXdFHDObNQ$oqqhXmVg9INZlSIGzXdFL99zom3n9OvVvh014a/idxg');
+
+-- Password (plaintext): Emma#A95Z1234
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Emma', 'DUBOIS', 'emma.dubois@auto95clean.test', '0603040506', '$argon2id$v=19$m=19456,t=2,p=1$ueDyrrcNkOVTJYX/0/p6Zg$n8Hmqj30byoI8e68guU02PCHkCx5tn2PL/513SVT+Fs');
+
+-- Password (plaintext): Hugo#A95Z1234
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Hugo', 'THOMAS', 'hugo.thomas@auto95clean.test', '0604050607', '$argon2id$v=19$m=19456,t=2,p=1$8mEsvrfadx6KZNpJGdztDA$Z35BUKjD7ZUfT++ehGPp9GbqxUZLdn9Kymtbb9s00Nk');
+
+-- Password (plaintext): Lea#A95Z12345
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Lea', 'ROBERT', 'lea.robert@auto95clean.test', '0605060708', '$argon2id$v=19$m=19456,t=2,p=1$mB3u/nhbjBGLkewerkZWIQ$mK6aOkhOdisQZvLlFIHgynLci0d5TQQxEte2sryDDAU');
+
+-- Password (plaintext): Noah#A95Z1234
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
+    ('Noah', 'RICHARD', 'noah.richard@auto95clean.test', '0606070809', '$argon2id$v=19$m=19456,t=2,p=1$huWj5OjOj1T/StSxzC5LTw$FDdjCRV+bA31iiW84MlMmCeS1nTJXQCupXaaDX0TveE');
 
 INSERT INTO parrainage (code_ou_lien,statut,id_parrain,id_parraine) VALUES
     ('REF-MOHAMED-SOFIA','valide',1,3),
@@ -107,16 +129,16 @@ INSERT INTO vehicule (marque,modele,immatriculation,id_utilisateur,id_type_vehic
     ('hyundai','i20','QR-157-TX',8,2);
 
 INSERT INTO creneau(start_at,end_at,capacite) VALUES
-    ('2026-04-18 17:00:00+02','2026-04-18 18:00:00+02',3),  -- 60'
-    ('2026-04-19 09:00:00+02','2026-04-19 10:30:00+02',3),  -- 90'
-    ('2026-04-19 11:00:00+02','2026-04-19 13:30:00+02',3),  -- 150'
-    ('2026-04-20 08:30:00+02','2026-04-20 09:30:00+02',2),  -- 60'
-    ('2026-04-20 10:00:00+02','2026-04-20 11:30:00+02',2),  -- 90'
-    ('2026-04-20 14:00:00+02','2026-04-20 16:30:00+02',2);  -- 150'
+    ('2026-05-18 17:00:00+02','2026-05-18 18:00:00+02',3),  -- 60'
+    ('2026-05-19 09:00:00+02','2026-05-19 10:30:00+02',3),  -- 90'
+    ('2026-05-19 11:00:00+02','2026-05-19 13:30:00+02',3),  -- 150'
+    ('2026-05-20 08:30:00+02','2026-05-20 09:30:00+02',2),  -- 60'
+    ('2026-05-20 10:00:00+02','2026-05-20 11:30:00+02',2),  -- 90'
+    ('2026-05-20 14:00:00+02','2026-05-20 16:30:00+02',2);  -- 150'
 
     --Test CHECK end_at > start_at
     INSERT INTO creneau(start_at,end_at,capacite) VALUES
-    ('2026-04-22 17:00:00+02','2026-04-22 16:00:00+02',3);  -- 60'
+    ('2026-05-22 17:00:00+02','2026-05-22 16:00:00+02',3);  -- 60'
     --Must fail
 
 INSERT INTO tarif(prix,id_type_vehicule,id_formule) VALUES
@@ -180,44 +202,44 @@ INSERT INTO rendez_vous (statut,commentaire,prix_total,id_utilisateur,id_creneau
     ('COMPLETED','Gold citadine completed',50.00,6,6,6,1,3);
 
 INSERT INTO paiement (montant,type_paiement,moyen,date_heure,reference_externe,statut,id_rendez_vous) VALUES
-    (40.00,'prepaiement','carte','2026-04-19 09:20:00+00','PAY-RDV-0001','pending',1),
-    (60.00,'prepaiement','carte','2026-04-19 09:25:00+00','PAY-RDV-0002','succeeded',2),
-    (60.00,'prepaiement','paypal','2026-04-19 09:30:00+00','PAY-RDV-0003','failed',3),
-    (100.00,'prepaiement','carte','2026-04-19 09:35:00+00','PAY-RDV-0004','succeeded',4),
-    (120.00,'prepaiement','carte','2026-04-19 09:40:00+00','PAY-RDV-0005','pending',5),
-    (50.00,'prepaiement','virement','2026-04-19 09:45:00+00','PAY-RDV-0006','succeeded',6);
+    (40.00,'prepaiement','carte','2026-05-19 09:20:00+00','PAY-RDV-0001','pending',1),
+    (60.00,'prepaiement','carte','2026-05-19 09:25:00+00','PAY-RDV-0002','succeeded',2),
+    (60.00,'prepaiement','paypal','2026-05-19 09:30:00+00','PAY-RDV-0003','failed',3),
+    (100.00,'prepaiement','carte','2026-05-19 09:35:00+00','PAY-RDV-0004','succeeded',4),
+    (120.00,'prepaiement','carte','2026-05-19 09:40:00+00','PAY-RDV-0005','pending',5),
+    (50.00,'prepaiement','virement','2026-05-19 09:45:00+00','PAY-RDV-0006','succeeded',6);
 
 --Test CHECK paiement.montant >= 0
 INSERT INTO paiement (montant,type_paiement,moyen,date_heure,reference_externe,statut,id_rendez_vous) VALUES
-    (-10.00,'prepaiement','carte','2026-04-19 10:00:00+00','PAY-NEGATIVE','pending',1); --Must fail
+    (-10.00,'prepaiement','carte','2026-05-19 10:00:00+00','PAY-NEGATIVE','pending',1); --Must fail
 
 --Test CONSTRAINT fk_paiement_rendez_vous
 INSERT INTO paiement (montant,type_paiement,moyen,date_heure,reference_externe,statut,id_rendez_vous) VALUES
-    (40.00,'prepaiement','carte','2026-04-19 10:05:00+00','PAY-BAD-FK','pending',999); --Must fail
+    (40.00,'prepaiement','carte','2026-05-19 10:05:00+00','PAY-BAD-FK','pending',999); --Must fail
 
 --Test ENUM statut_paiement
 INSERT INTO paiement (montant,type_paiement,moyen,date_heure,reference_externe,statut,id_rendez_vous) VALUES
-    (40.00,'prepaiement','carte','2026-04-19 10:10:00+00','PAY-BAD-STATUS','processing',1); --Must fail
+    (40.00,'prepaiement','carte','2026-05-19 10:10:00+00','PAY-BAD-STATUS','processing',1); --Must fail
 
 INSERT INTO fidelite_mouvement (points,motif,date_obtention,date_expiration,id_utilisateur,id_rendez_vous) VALUES
-    (10,'Premiere reservation','2026-04-19 10:20:00+00','2027-04-19 10:20:00+00',1,1),
-    (20,'Paiement confirme','2026-04-19 10:25:00+00','2027-04-19 10:25:00+00',2,2),
-    (-5,'Annulation tardive','2026-04-19 10:30:00+00','2026-12-31 23:59:59+00',3,3),
-    (15,'Bonus fidelite mensuel','2026-04-19 10:35:00+00','2027-04-19 10:35:00+00',6,6),
-    (5,'Parrainage valide','2026-04-19 10:40:00+00','2027-04-19 10:40:00+00',4,NULL);
+    (10,'Premiere reservation','2026-05-19 10:20:00+00','2027-05-19 10:20:00+00',1,1),
+    (20,'Paiement confirme','2026-05-19 10:25:00+00','2027-05-19 10:25:00+00',2,2),
+    (-5,'Annulation tardive','2026-05-19 10:30:00+00','2026-12-31 23:59:59+00',3,3),
+    (15,'Bonus fidelite mensuel','2026-05-19 10:35:00+00','2027-05-19 10:35:00+00',6,6),
+    (5,'Parrainage valide','2026-05-19 10:40:00+00','2027-05-19 10:40:00+00',4,NULL);
 
 --Test CHECK fidelite_mouvement.points <> 0
 INSERT INTO fidelite_mouvement (points,motif,date_obtention,date_expiration,id_utilisateur,id_rendez_vous) VALUES
-    (0,'Points nuls invalides','2026-04-19 10:45:00+00','2027-04-19 10:45:00+00',1,1); --Must fail
+    (0,'Points nuls invalides','2026-05-19 10:45:00+00','2027-05-19 10:45:00+00',1,1); --Must fail
 
 --Test CHECK fidelite_mouvement.date_expiration >= date_obtention
 INSERT INTO fidelite_mouvement (points,motif,date_obtention,date_expiration,id_utilisateur,id_rendez_vous) VALUES
-    (10,'Dates invalides','2026-04-19 11:00:00+00','2026-04-18 11:00:00+00',2,2); --Must fail
+    (10,'Dates invalides','2026-05-19 11:00:00+00','2026-05-18 11:00:00+00',2,2); --Must fail
 
 --Test CONSTRAINT fk_fidelite_mouvement_utilisateur
 INSERT INTO fidelite_mouvement (points,motif,date_obtention,date_expiration,id_utilisateur,id_rendez_vous) VALUES
-    (10,'Utilisateur inexistant','2026-04-19 11:05:00+00','2027-04-19 11:05:00+00',999,1); --Must fail
+    (10,'Utilisateur inexistant','2026-05-19 11:05:00+00','2027-05-19 11:05:00+00',999,1); --Must fail
 
 --Test CONSTRAINT fk_fidelite_mouvement_rendez_vous
 INSERT INTO fidelite_mouvement (points,motif,date_obtention,date_expiration,id_utilisateur,id_rendez_vous) VALUES
-    (10,'RDV inexistant','2026-04-19 11:10:00+00','2027-04-19 11:10:00+00',1,999); --Must fail
+    (10,'RDV inexistant','2026-05-19 11:10:00+00','2027-05-19 11:10:00+00',1,999); --Must fail
