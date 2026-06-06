@@ -31,35 +31,35 @@
 */
 -- Password (plaintext): Mohamed#A95Z1
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Mohamed', 'ALI', 'mohamed.ali@auto95clean.test', '0677898684', '$argon2id$v=19$m=19456,t=2,p=1$WrGG+vF33lkZi/D3+0pPTA$T0hRuQ4JKdSrQAnc2aG5er/5lrdUMPilRhepsq7MyGg');
+    ('Mohamed', 'ALI', 'mohamed.ali@example.com', '0677898684', '$argon2id$v=19$m=19456,t=2,p=1$WrGG+vF33lkZi/D3+0pPTA$T0hRuQ4JKdSrQAnc2aG5er/5lrdUMPilRhepsq7MyGg');
 
 -- Password (plaintext): Dante#A95Z123
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Dante', 'ALIGHIERI', 'dante.alighieri@auto95clean.test', '0687586325', '$argon2id$v=19$m=19456,t=2,p=1$o8hfTLdDAUjTWuIzRrIJtA$NMEtIMTcsFYYDCZokZKN7890F6d2uSEpLWJXKagfXK4');
+    ('Dante', 'ALIGHIERI', 'dante.alighieri@example.com', '0687586325', '$argon2id$v=19$m=19456,t=2,p=1$o8hfTLdDAUjTWuIzRrIJtA$NMEtIMTcsFYYDCZokZKN7890F6d2uSEpLWJXKagfXK4');
 
 -- Password (plaintext): Sofia#A95Z123
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Sofia', 'MARTIN', 'sofia.martin@auto95clean.test', '0601020304', '$argon2id$v=19$m=19456,t=2,p=1$DMmd5V1vFP3Hi5hb0e5LPw$UpozLgh5DcfffADeZ7RHd7kgU9h5DX3+hbAcHy4RN/k');
+    ('Sofia', 'MARTIN', 'sofia.martin@example.com', '0601020304', '$argon2id$v=19$m=19456,t=2,p=1$DMmd5V1vFP3Hi5hb0e5LPw$UpozLgh5DcfffADeZ7RHd7kgU9h5DX3+hbAcHy4RN/k');
 
 -- Password (plaintext): Lucas#A95Z123
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Lucas', 'BERNARD', 'lucas.bernard@auto95clean.test', '0602030405', '$argon2id$v=19$m=19456,t=2,p=1$H9c60jgLzaljdXdFHDObNQ$oqqhXmVg9INZlSIGzXdFL99zom3n9OvVvh014a/idxg');
+    ('Lucas', 'BERNARD', 'lucas.bernard@example.com', '0602030405', '$argon2id$v=19$m=19456,t=2,p=1$H9c60jgLzaljdXdFHDObNQ$oqqhXmVg9INZlSIGzXdFL99zom3n9OvVvh014a/idxg');
 
 -- Password (plaintext): Emma#A95Z1234
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Emma', 'DUBOIS', 'emma.dubois@auto95clean.test', '0603040506', '$argon2id$v=19$m=19456,t=2,p=1$ueDyrrcNkOVTJYX/0/p6Zg$n8Hmqj30byoI8e68guU02PCHkCx5tn2PL/513SVT+Fs');
+    ('Emma', 'DUBOIS', 'emma.dubois@example.com', '0603040506', '$argon2id$v=19$m=19456,t=2,p=1$ueDyrrcNkOVTJYX/0/p6Zg$n8Hmqj30byoI8e68guU02PCHkCx5tn2PL/513SVT+Fs');
 
 -- Password (plaintext): Hugo#A95Z1234
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Hugo', 'THOMAS', 'hugo.thomas@auto95clean.test', '0604050607', '$argon2id$v=19$m=19456,t=2,p=1$8mEsvrfadx6KZNpJGdztDA$Z35BUKjD7ZUfT++ehGPp9GbqxUZLdn9Kymtbb9s00Nk');
+    ('Hugo', 'THOMAS', 'hugo.thomas@example.com', '0604050607', '$argon2id$v=19$m=19456,t=2,p=1$8mEsvrfadx6KZNpJGdztDA$Z35BUKjD7ZUfT++ehGPp9GbqxUZLdn9Kymtbb9s00Nk');
 
 -- Password (plaintext): Lea#A95Z12345
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Lea', 'ROBERT', 'lea.robert@auto95clean.test', '0605060708', '$argon2id$v=19$m=19456,t=2,p=1$mB3u/nhbjBGLkewerkZWIQ$mK6aOkhOdisQZvLlFIHgynLci0d5TQQxEte2sryDDAU');
+    ('Lea', 'ROBERT', 'lea.robert@example.com', '0605060708', '$argon2id$v=19$m=19456,t=2,p=1$mB3u/nhbjBGLkewerkZWIQ$mK6aOkhOdisQZvLlFIHgynLci0d5TQQxEte2sryDDAU');
 
 -- Password (plaintext): Noah#A95Z1234
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
-    ('Noah', 'RICHARD', 'noah.richard@auto95clean.test', '0606070809', '$argon2id$v=19$m=19456,t=2,p=1$huWj5OjOj1T/StSxzC5LTw$FDdjCRV+bA31iiW84MlMmCeS1nTJXQCupXaaDX0TveE');
+    ('Noah', 'RICHARD', 'noah.richard@example.com', '0606070809', '$argon2id$v=19$m=19456,t=2,p=1$huWj5OjOj1T/StSxzC5LTw$FDdjCRV+bA31iiW84MlMmCeS1nTJXQCupXaaDX0TveE');
 
 INSERT INTO parrainage (code_ou_lien,statut,id_parrain,id_parraine) VALUES
     ('REF-MOHAMED-SOFIA','valide',1,3),
