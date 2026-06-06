@@ -2,15 +2,17 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UtilisateursService } from '../utilisateurs/utilisateurs.service';
 import { Prisma } from '@prisma/client';
 import { PasswordService } from './password.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-    constructor(private readonly utilisateurService: UtilisateursService,
-
-        private readonly password: PasswordService
+    constructor(
+        private readonly utilisateurService: UtilisateursService,
+        private readonly password: PasswordService,
+        private readonly jwtService: JwtService
     ) { }
 
-    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<any> {
+    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string }> {
         const user = await this.utilisateurService.utilisateurParEmail(email);
         //console.log("signin controller reached.");
 
@@ -25,8 +27,14 @@ export class AuthService {
             //console.log(`Pass don't match.`);
             throw new UnauthorizedException();
         }
-        const { passwordHash, prenom, nom, ...result } = user;
+        const payload = {
+            sub: user.idUtilisateur,
+            role: user.role
+        };
 
-        return result;
+
+        return {
+            access_token: await this.jwtService.signAsync(payload),
+        };
     }
 }
