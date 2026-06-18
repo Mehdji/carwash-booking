@@ -1,9 +1,13 @@
-import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, NotFoundException } from "@nestjs/common";
+import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, NotFoundException, UseGuards } from "@nestjs/common";
 import { UtilisateursService } from "./utilisateurs.service";
-import { Utilisateur, Prisma } from "@prisma/client";
+import { Utilisateur, Prisma, RoleUtilisateur } from "@prisma/client";
 import { UpdateUtilisateurStatusDto } from "./dto/update-utilisateur-status.dto";
 import { CreateUtilisateurDto } from "./dto/create-utilisateur.dto";
+import { Roles } from "../auth/decorators/roles.decorator";
+import { AuthGuard } from "../auth/auth.guard";
+import { RolesGuard } from "../auth/decorators/roles.guards";
 
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('api/users')
 export class UtilisateursController {
     constructor(private readonly utilisateursService: UtilisateursService) { }
@@ -58,8 +62,8 @@ export class UtilisateursController {
         })
     }
 
-    //TODO Implémenter password.service.ts pour hash temporairement le password
-    //TODO A TESTER MAIS PROBABLEMENT A REFACTO AC LES DATA DANS LE BODY DE LA REQUETE EN JSON
+
+    @Roles(RoleUtilisateur.ADMIN)
     @Post()
     async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<Utilisateur> {
         const { prenom, nom, telephone, email, password, role } = utilisateurData;
@@ -75,6 +79,7 @@ export class UtilisateursController {
         })
     }
 
+    @Roles(RoleUtilisateur.ADMIN)
     @Delete(':id')
     async delete(@Param('id', ParseIntPipe) id: number): Promise<Utilisateur> {
         try {
@@ -90,7 +95,7 @@ export class UtilisateursController {
         }
     }
 
-    //TODO AJOUTER UNE PROMISE EN RETOUR ET GERER EXCEPTIONS
+    @Roles(RoleUtilisateur.ADMIN)
     @Patch(':id/status')
     async updateStatus(
         @Param('id', ParseIntPipe) id: number,
@@ -119,37 +124,3 @@ export class UtilisateursController {
 }
 
 
-/*
-@Patch(':id/status')
-    async activateUtilisateur(@Query('parameter') parameter: string, @Param('id') id: string): Promise<Utilisateur> {
-        if (parameter === 'deactivate') {
-            return this.utilisateursService.updateUtilisateur({
-                where: {
-                    idUtilisateur: Number(id),
-
-                },
-                data: {
-                    actif: false
-                }
-
-            })
-        } else if (parameter === 'activate') {
-            return this.utilisateursService.updateUtilisateur({
-                where: {
-                    idUtilisateur: Number(id),
-
-                },
-                data: {
-                    actif: true
-                }
-
-            })
-
-
-        }
-        const user = await this.utilisateursService.utilisateur({ idUtilisateur: Number(id) });
-        if (!user) throw new NotFoundException(`Utilisateur ${id} not found`);
-        return user;
-
-    }
-*/ 

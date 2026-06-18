@@ -61,6 +61,10 @@ INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
     ('Noah', 'RICHARD', 'noah.richard@example.com', '0606070809', '$argon2id$v=19$m=19456,t=2,p=1$huWj5OjOj1T/StSxzC5LTw$FDdjCRV+bA31iiW84MlMmCeS1nTJXQCupXaaDX0TveE');
 
+-- Password (plaintext): Admin#A95Z123
+INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash, role) VALUES
+    ('Admin', 'AUTO95CLEAN', 'admin@auto95clean.fr', '0600000000', '$argon2id$v=19$m=19456,t=2,p=1$5KvLqp9CRWzBhd7L4cuhRg$vLdjRjVA1tvhhVNBXUpVs52l5l8PzQxS8R/VbQs67HI', 'ADMIN');
+
 INSERT INTO parrainage (code_ou_lien,statut,id_parrain,id_parraine) VALUES
     ('REF-MOHAMED-SOFIA','valide',1,3),
     ('REF-DANTE-EMMA','en_attente',2,5),
