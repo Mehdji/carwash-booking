@@ -19,10 +19,6 @@ export class CreateUtilisateurDto {
     @MinLength(13)
     password!: string;
 
-    @IsOptional()
-    @IsEnum(RoleUtilisateur)
-    role!: RoleUtilisateur
-
 
 
 

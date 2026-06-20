@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
-import { Prisma } from "@prisma/client";
+import { Prisma, RoleUtilisateur } from "@prisma/client";
 import { Utilisateur } from "@prisma/client";
 import { PasswordService } from "../auth/password.service";
 import { CreateUtilisateurDto } from "./dto/create-utilisateur.dto";
@@ -52,7 +52,7 @@ export class UtilisateursService {
                 telephone: dto.telephone,
                 email: dto.email,
                 passwordHash: passwordHash,
-                role: dto.role
+                role: RoleUtilisateur.CLIENT
             },
             omit: { passwordHash: true, }
         });
@@ -74,7 +74,7 @@ export class UtilisateursService {
     async deleteUtilisateur(where: Prisma.UtilisateurWhereUniqueInput): Promise<UtilisateurPublic> {
         return this.prisma.utilisateur.delete({
             where,
-
+            omit: { passwordHash: true, }
         });
 
     }

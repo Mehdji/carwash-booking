@@ -18,19 +18,19 @@ export class AuthService {
     async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string }> {
         const user = await this.utilisateurService.findUtilisateurAvecHashParEmail(email);
 
-        if (!user?.actif) {
-            throw new UnauthorizedException();
-        }
-
         if (!user) {
 
             throw new UnauthorizedException();
 
         }
+        if (!user?.actif) {
+            throw new UnauthorizedException();
+        }
+
         const userHashedPassword = user?.passwordHash;
 
         if (!await this.password.verifyPassword(userHashedPassword, pass)) {
-            //console.log(`Pass don't match.`);
+
             throw new UnauthorizedException();
         }
         const payload = {

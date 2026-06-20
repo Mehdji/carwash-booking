@@ -69,14 +69,14 @@ export class UtilisateursController {
     @Roles(RoleUtilisateur.ADMIN)
     @Post()
     async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<UtilisateurPublic> {
-        const { prenom, nom, telephone, email, password, role } = utilisateurData;
+        const { prenom, nom, telephone, email, password, } = utilisateurData;
         return this.utilisateursService.createUtilisateur({
             prenom,
             nom,
             telephone,
             email,
             password,
-            role,
+
 
 
         })
