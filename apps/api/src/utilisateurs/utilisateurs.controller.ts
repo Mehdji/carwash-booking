@@ -6,22 +6,25 @@ import { CreateUtilisateurDto } from "./dto/create-utilisateur.dto";
 import { Roles } from "../auth/decorators/roles.decorator";
 import { AuthGuard } from "../auth/auth.guard";
 import { RolesGuard } from "../auth/decorators/roles.guards";
+import { UtilisateurPublic } from "./utilisateur.types";
 
 @UseGuards(AuthGuard, RolesGuard)
 @Controller('api/users')
 export class UtilisateursController {
     constructor(private readonly utilisateursService: UtilisateursService) { }
 
+    @Roles(RoleUtilisateur.ADMIN)
     @Get()
-    async getUtilisateurs(): Promise<Utilisateur[]> {
+    async getUtilisateurs(): Promise<UtilisateurPublic[]> {
         return this.utilisateursService.utilisateurs({
 
         })
 
     }
 
+    @Roles(RoleUtilisateur.ADMIN)
     @Get('getFilteredUtilisateurs')
-    async getFilteredUtilisateurs(@Query("searchString") searchString: string): Promise<Utilisateur[]> {
+    async getFilteredUtilisateurs(@Query("searchString") searchString: string): Promise<UtilisateurPublic[]> {
         const parsedDate = new Date(searchString);
         const isValidDate = !Number.isNaN(parsedDate.getTime());
         const orFilters: Prisma.UtilisateurWhereInput[] = [
@@ -54,9 +57,9 @@ export class UtilisateursController {
 
     }
 
-
+    @Roles(RoleUtilisateur.ADMIN)
     @Get(':id')
-    async getUtilisateur(@Param('id') id: string): Promise<Utilisateur | null> {
+    async getUtilisateur(@Param('id') id: string): Promise<UtilisateurPublic | null> {
         return this.utilisateursService.utilisateur({
             idUtilisateur: Number(id)
         })
@@ -65,7 +68,7 @@ export class UtilisateursController {
 
     @Roles(RoleUtilisateur.ADMIN)
     @Post()
-    async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<Utilisateur> {
+    async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<UtilisateurPublic> {
         const { prenom, nom, telephone, email, password, role } = utilisateurData;
         return this.utilisateursService.createUtilisateur({
             prenom,
@@ -81,7 +84,7 @@ export class UtilisateursController {
 
     @Roles(RoleUtilisateur.ADMIN)
     @Delete(':id')
-    async delete(@Param('id', ParseIntPipe) id: number): Promise<Utilisateur> {
+    async delete(@Param('id', ParseIntPipe) id: number): Promise<UtilisateurPublic> {
         try {
             return await this.utilisateursService.deleteUtilisateur({
                 idUtilisateur: id
@@ -100,7 +103,7 @@ export class UtilisateursController {
     async updateStatus(
         @Param('id', ParseIntPipe) id: number,
         @Body() updateUtilisateurStatusDto: UpdateUtilisateurStatusDto,
-    ): Promise<Utilisateur> {
+    ): Promise<UtilisateurPublic> {
 
         try {
             return await this.utilisateursService.updateUtilisateur({
