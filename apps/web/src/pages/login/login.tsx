@@ -1,27 +1,24 @@
 import { useState } from "react";
-
+import { fetchLogin } from "../../api/auth.api";
 const Login = () => {
 
   const [login, setLogin] = useState([]);
-  console.log(`${import.meta.env.VITE_API_URL}/api/auth/login`);
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const fetchLogin = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: "emailhere",
-        password: "passwordhere"
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => setLogin(data))
-    console.log(login)
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   }
+
+  //CHange email and password by formData
+  const getJwt = async () => {
+    const response = await fetchLogin(formData);
+    setLogin(response);
+    console.log(login);
+
+
+  }
+
 
   return (
     <section id="login" className="mx-auto w-full max-w-6xl px-5 py-16 scroll-mt-32">
@@ -61,6 +58,9 @@ const Login = () => {
               <input
                 id="email"
                 type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="email@exemple.com"
                 className="w-full rounded-lg border border-white/15 bg-black-service px-4 py-3 text-white outline-none transition focus:border-blue-text"
                 required
@@ -77,6 +77,9 @@ const Login = () => {
               <input
                 id="password"
                 type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
                 placeholder="********"
                 className="w-full rounded-lg border border-white/15 bg-black-service px-4 py-3 text-white outline-none transition focus:border-blue-text"
                 required
@@ -93,7 +96,9 @@ const Login = () => {
               </a>
             </div>
 
-            <button onClick={fetchLogin}
+            <button onClick={() => getJwt()
+
+            }
               type="submit"
               className="w-full cursor-pointer rounded-lg bg-blue-text py-3 font-display text-lg text-white transition hover:bg-blue-text-hover"
             >
@@ -102,7 +107,7 @@ const Login = () => {
           </form>
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 
