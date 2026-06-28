@@ -1,23 +1,30 @@
-import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, NotFoundException } from "@nestjs/common";
+import { Controller, Get, Param, Body, Post, Delete, Query, Patch, ParseIntPipe, NotFoundException, UseGuards } from "@nestjs/common";
 import { UtilisateursService } from "./utilisateurs.service";
-import { Utilisateur, Prisma } from "@prisma/client";
+import { Utilisateur, Prisma, RoleUtilisateur } from "@prisma/client";
 import { UpdateUtilisateurStatusDto } from "./dto/update-utilisateur-status.dto";
 import { CreateUtilisateurDto } from "./dto/create-utilisateur.dto";
+import { Roles } from "../auth/decorators/roles.decorator";
+import { AuthGuard } from "../auth/auth.guard";
+import { RolesGuard } from "../auth/decorators/roles.guards";
+import { UtilisateurPublic } from "./utilisateur.types";
 
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('api/users')
 export class UtilisateursController {
     constructor(private readonly utilisateursService: UtilisateursService) { }
 
+    @Roles(RoleUtilisateur.ADMIN)
     @Get()
-    async getUtilisateurs(): Promise<Utilisateur[]> {
+    async getUtilisateurs(): Promise<UtilisateurPublic[]> {
         return this.utilisateursService.utilisateurs({
 
         })
 
     }
 
+    @Roles(RoleUtilisateur.ADMIN)
     @Get('getFilteredUtilisateurs')
-    async getFilteredUtilisateurs(@Query("searchString") searchString: string): Promise<Utilisateur[]> {
+    async getFilteredUtilisateurs(@Query("searchString") searchString: string): Promise<UtilisateurPublic[]> {
         const parsedDate = new Date(searchString);
         const isValidDate = !Number.isNaN(parsedDate.getTime());
         const orFilters: Prisma.UtilisateurWhereInput[] = [
@@ -50,33 +57,34 @@ export class UtilisateursController {
 
     }
 
-
+    @Roles(RoleUtilisateur.ADMIN)
     @Get(':id')
-    async getUtilisateur(@Param('id') id: string): Promise<Utilisateur | null> {
+    async getUtilisateur(@Param('id') id: string): Promise<UtilisateurPublic | null> {
         return this.utilisateursService.utilisateur({
             idUtilisateur: Number(id)
         })
     }
 
-    //TODO Implémenter password.service.ts pour hash temporairement le password
-    //TODO A TESTER MAIS PROBABLEMENT A REFACTO AC LES DATA DANS LE BODY DE LA REQUETE EN JSON
+
+    @Roles(RoleUtilisateur.ADMIN)
     @Post()
-    async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<Utilisateur> {
-        const { prenom, nom, telephone, email, password, role } = utilisateurData;
+    async create(@Body() utilisateurData: CreateUtilisateurDto): Promise<UtilisateurPublic> {
+        const { prenom, nom, telephone, email, password, } = utilisateurData;
         return this.utilisateursService.createUtilisateur({
             prenom,
             nom,
             telephone,
             email,
             password,
-            role,
+
 
 
         })
     }
 
+    @Roles(RoleUtilisateur.ADMIN)
     @Delete(':id')
-    async delete(@Param('id', ParseIntPipe) id: number): Promise<Utilisateur> {
+    async delete(@Param('id', ParseIntPipe) id: number): Promise<UtilisateurPublic> {
         try {
             return await this.utilisateursService.deleteUtilisateur({
                 idUtilisateur: id
@@ -90,12 +98,12 @@ export class UtilisateursController {
         }
     }
 
-    //TODO AJOUTER UNE PROMISE EN RETOUR ET GERER EXCEPTIONS
+    @Roles(RoleUtilisateur.ADMIN)
     @Patch(':id/status')
     async updateStatus(
         @Param('id', ParseIntPipe) id: number,
         @Body() updateUtilisateurStatusDto: UpdateUtilisateurStatusDto,
-    ): Promise<Utilisateur> {
+    ): Promise<UtilisateurPublic> {
 
         try {
             return await this.utilisateursService.updateUtilisateur({
@@ -119,37 +127,3 @@ export class UtilisateursController {
 }
 
 
-/*
-@Patch(':id/status')
-    async activateUtilisateur(@Query('parameter') parameter: string, @Param('id') id: string): Promise<Utilisateur> {
-        if (parameter === 'deactivate') {
-            return this.utilisateursService.updateUtilisateur({
-                where: {
-                    idUtilisateur: Number(id),
-
-                },
-                data: {
-                    actif: false
-                }
-
-            })
-        } else if (parameter === 'activate') {
-            return this.utilisateursService.updateUtilisateur({
-                where: {
-                    idUtilisateur: Number(id),
-
-                },
-                data: {
-                    actif: true
-                }
-
-            })
-
-
-        }
-        const user = await this.utilisateursService.utilisateur({ idUtilisateur: Number(id) });
-        if (!user) throw new NotFoundException(`Utilisateur ${id} not found`);
-        return user;
-
-    }
-*/ 

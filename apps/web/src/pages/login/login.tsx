@@ -1,4 +1,28 @@
+import { useState } from "react";
+
 const Login = () => {
+
+  const [login, setLogin] = useState([]);
+  console.log(`${import.meta.env.VITE_API_URL}/api/auth/login`);
+
+  const fetchLogin = () => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        Accept: "application/json, text/plain, */*",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: "sofia.martin@example.com",
+        password: "Sofia#A95Z123"
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => setLogin(data))
+    console.log(login)
+  }
+
   return (
     <section id="login" className="mx-auto w-full max-w-6xl px-5 py-16 scroll-mt-32">
       <div className="grid w-full overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl shadow-black/50 md:grid-cols-2">
@@ -69,7 +93,7 @@ const Login = () => {
               </a>
             </div>
 
-            <button
+            <button onClick={fetchLogin}
               type="submit"
               className="w-full cursor-pointer rounded-lg bg-blue-text py-3 font-display text-lg text-white transition hover:bg-blue-text-hover"
             >

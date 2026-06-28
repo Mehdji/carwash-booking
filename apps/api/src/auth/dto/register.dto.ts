@@ -1,8 +1,8 @@
-import { IsNumber, IsString, IsEnum, IsEmail, MinLength, IsOptional } from "class-validator";
+import { IsString, IsEmail, MinLength } from "class-validator";
 
-import { RoleUtilisateur } from "@prisma/client";
 
-export class CreateUtilisateurDto {
+
+export class RegisterDto {
     @IsString()
     prenom!: string;
 
