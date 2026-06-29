@@ -1,113 +1,102 @@
-import { useState } from "react";
+import { type ChangeEvent, type FormEvent, useState } from "react";
+import Footer from "../../components/footer/footer";
 import { fetchLogin } from "../../api/auth.api";
+import TextField from "../../components/textfield/textfield";
+
+
+
+type LoginFormData = {
+  email: string;
+  password: string;
+};
+
+
+
+
 const Login = () => {
 
-  const [login, setLogin] = useState([]);
-  const [formData, setFormData] = useState({ email: "", password: "" });
 
-  const handleChange = (event: any) => {
+
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  }
+  };
 
-  //CHange email and password by formData
-  const getJwt = async () => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     const response = await fetchLogin(formData);
-    setLogin(response);
-    console.log(login);
-
-
-  }
-
+    console.log(response);
+  };
 
   return (
-    <section id="login" className="mx-auto w-full max-w-6xl px-5 py-16 scroll-mt-32">
-      <div className="grid w-full overflow-hidden rounded-2xl border border-white/10 bg-card shadow-2xl shadow-black/50 md:grid-cols-2">
-        <div className="hidden bg-gradient-to-b from-antracite to-black-service p-10 text-left md:block">
-          <p className="font-display text-sm uppercase tracking-[0.2em] text-blue-text">
-            Auto 95 Clean
-          </p>
-          <h2 className="mt-5 font-display text-4xl font-bold text-white">
-            Connectez-vous a votre espace client.
-          </h2>
-          <p className="mt-4 text-lg text-text-gray-seventy">
-            Retrouvez vos reservations, vos formules et vos prochains
-            rendez-vous en un clic.
-          </p>
-        </div>
+    <div className="relative left-1/2 min-h-screen w-screen -translate-x-1/2 bg-black-service text-white">
+      <main className="flex justify-center px-5 pt-26 pb-16">
+        <section id="login" className="mx-auto flex w-full max-w-xl flex-col items-center">
 
-        <div className="bg-antracite p-8 text-left sm:p-10">
-          <h3 className="font-display text-3xl font-semibold text-white">
-            Se connecter
-          </h3>
-          <p className="mt-2 text-sm text-text-gray-seventy">
-            Renseignez vos identifiants pour continuer.
-          </p>
+
+          <div className="text-center">
+            <h1 className="font-display text-3xl font-bold text-white">Connexion</h1>
+            <p className="mt-2 text-base text-text-gray-seventy">
+              Connectez-vous pour gerer vos rendez-vous.
+            </p>
+          </div>
+
 
           <form
-            className="mt-8 space-y-5"
-            onSubmit={(event) => event.preventDefault()}
+            className="mt-6 flex w-full max-w-sm flex-col gap-6 rounded-xl bg-card px-8 py-8 shadow-2xl shadow-black/40"
+            onSubmit={handleSubmit}
           >
-            <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block text-sm text-text-gray-seventy"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="email@exemple.com"
-                className="w-full rounded-lg border border-white/15 bg-black-service px-4 py-3 text-white outline-none transition focus:border-blue-text"
-                required
-              />
-            </div>
+            <TextField
+              id="email"
+              name="email"
+              label="Adresse email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="exemple@email.com"
+              required
+            />
 
-            <div>
-              <label
-                htmlFor="password"
-                className="mb-2 block text-sm text-text-gray-seventy"
-              >
-                Mot de passe
-              </label>
-              <input
-                id="password"
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="********"
-                className="w-full rounded-lg border border-white/15 bg-black-service px-4 py-3 text-white outline-none transition focus:border-blue-text"
-                required
-              />
-            </div>
+            <TextField
+              id="password"
+              name="password"
+              label="Mot de passe"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="************"
+              required
+            />
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-text-gray-seventy">
-                <input type="checkbox" className="accent-blue-text" />
-                Se souvenir de moi
-              </label>
-              <a href="#" className="text-blue-text hover:text-blue-text-hover">
-                Mot de passe oublie ?
+            <button
+              type="submit"
+              className="mt-1 w-full cursor-pointer rounded-lg bg-blue-text py-3 text-sm font-medium text-white transition hover:bg-blue-text-hover"
+            >
+              Se connecter
+            </button>
+
+            <div className="flex flex-col items-center gap-3 text-sm font-semibold text-text-gray-seventy">
+              <a href="#" className="transition hover:text-blue-text">
+                Mot de passe oublie?
+              </a>
+              <a href="#" className="transition hover:text-blue-text">
+                Creer un compte.
               </a>
             </div>
-
-            <button onClick={() => getJwt()
-
-            }
-              type="submit"
-              className="w-full cursor-pointer rounded-lg bg-blue-text py-3 font-display text-lg text-white transition hover:bg-blue-text-hover"
-            >
-              Connexion
-            </button>
           </form>
-        </div>
+        </section>
+      </main>
+
+      <div className="flex justify-center">
+        <Footer />
       </div>
-    </section >
+    </div>
   );
 };
 

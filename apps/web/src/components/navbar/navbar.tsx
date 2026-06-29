@@ -19,20 +19,20 @@ const Navbar = ()=>{
 
     return(
         <nav className="fixed top-0 left-0 right-0 z-50 bg-antracite">
-            <div className="relative px-5 h-20 flex flex-row justify-items-start gap-12
+            <div className="relative px-5 h-16 flex flex-row justify-items-start gap-10
   after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
-                <div className="navbar-left">
-                    <a href="#hero" className="logo">
-                        <img className="h-20 w-auto object-contain" src={logo} alt="logo" />
+                <div className="navbar-left flex items-center">
+                    <a href="#hero">
+                        <img className="h-16 w-auto object-contain" src={logo} alt="logo" />
                     </a>
                 </div>
             
                 <div className="navbar-center w-full ">
-                    <ul className ="nav-links h-20  flex items-center justify-around space-x-10 gap-5 ">
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125 scroll-smooth " href ="#services">Services</a>
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="#formules">Formules&Tarifs</a>
-                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" href ="#pourquoi">Pourquoi nous choisir?</a>
-                        <Link className ="text-blue-text font-display hover:text-blue-text-hover text-xl transition-transform hover:scale-125" to="/login" >Se connecter</Link>
+                    <ul className ="nav-links h-16 flex items-center justify-around space-x-8 gap-4 ">
+                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-base transition-transform hover:scale-110 scroll-smooth " href ="#services">Services</a>
+                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-base transition-transform hover:scale-110" href ="#formules">Formules&Tarifs</a>
+                        <a className ="text-blue-text font-display hover:text-blue-text-hover text-base transition-transform hover:scale-110" href ="#pourquoi">Pourquoi nous choisir?</a>
+                        <Link className ="text-blue-text font-display hover:text-blue-text-hover text-base transition-transform hover:scale-110" to="/login" >Se connecter</Link>
                     </ul>
                 </div>
             </div>
