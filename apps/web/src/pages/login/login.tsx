@@ -14,13 +14,12 @@ type LoginFormData = {
 
 
 const Login = () => {
-
-
-
+  const [isFailed, setIsFailed] = useState(false);
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
   });
+
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -31,11 +30,13 @@ const Login = () => {
     event.preventDefault();
 
     const response = await fetchLogin(formData);
-
+    setIsFailed(!response.ok)
     //TODO write a condition where ok is checked and login message is ok or failed.
     //Object in auth.api return object responseLoginApi with ok bool status str code and data str
     console.log(response);
   };
+
+
 
   return (
     <div className="relative left-1/2 min-h-screen w-screen -translate-x-1/2 bg-black-service text-white">
@@ -77,13 +78,13 @@ const Login = () => {
               required
             />
 
+            <div className=" text-red-500 text-sm text-center " style={{ display: isFailed ? "block" : "none" }}>Adresse email ou mot de passe incorrect</div>
             <button
               type="submit"
               className="mt-1 w-full cursor-pointer rounded-lg bg-blue-text py-3 text-sm font-medium text-white transition hover:bg-blue-text-hover"
             >
               Se connecter
             </button>
-
             <div className="flex flex-col items-center gap-3 text-sm font-semibold text-text-gray-seventy">
               <a href="#" className="transition hover:text-blue-text">
                 Mot de passe oublie?
