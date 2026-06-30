@@ -31,6 +31,9 @@ const Login = () => {
     event.preventDefault();
 
     const response = await fetchLogin(formData);
+
+    //TODO write a condition where ok is checked and login message is ok or failed.
+    //Object in auth.api return object responseLoginApi with ok bool status str code and data str
     console.log(response);
   };
 
