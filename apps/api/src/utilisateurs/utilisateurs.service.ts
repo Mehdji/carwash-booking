@@ -93,4 +93,14 @@ export class UtilisateursService {
             select: { idUtilisateur: true, passwordHash: true, role: true, actif: true },
         });
     }
+
+    getRefreshTokenHashParUtilisateur(id: Prisma.UtilisateurWhereUniqueInput): Promise<Pick<Utilisateur, 'refreshTokenHash'> | null> {
+        return this.prisma.utilisateur.findUnique({
+            where: id,
+            select: { refreshTokenHash: true }
+        }
+        )
+    }
+
+
 }

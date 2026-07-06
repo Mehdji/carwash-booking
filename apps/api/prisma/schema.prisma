@@ -95,6 +95,7 @@ model Utilisateur {
   role                     RoleUtilisateur     @default(CLIENT)
   dateInscription          DateTime            @default(now()) @map("date_inscription") @db.Timestamptz()
   actif                    Boolean             @default(true)
+  refreshTokenHash         String?             @map("refresh_token_hash") @db.VarChar(255)
   vehicules                Vehicule[]
   parrainagesCommeParrain  Parrainage[]        @relation("Parrain")
   parrainagesCommeParraine Parrainage[]        @relation("Parraine")

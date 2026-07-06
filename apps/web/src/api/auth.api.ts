@@ -36,11 +36,7 @@ export const fetchLogin = async (credentials: Login) => {
         errors: response.ok == true ? null : data.statusCode,
         data: response.ok == false ? null : data.access_token
     }
-    /*
-    console.log(`data = ${data}`)
-    console.log(`responseLoginApi = ${responseLoginApi.errors}`)
-    console.log(`responseLoginApi = ${responseLoginApi.data}`)
-    */
+
     return responseLoginApi;
 
 }

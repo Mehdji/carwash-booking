@@ -158,9 +158,7 @@ INSERT INTO tarif(prix,id_type_vehicule,id_formule) VALUES
 
 --Test CONSTRAINT UNIQ
 INSERT INTO tarif(prix,id_type_vehicule,id_formule) VALUES
-    (40.00,1,1), -- silver / citadine
---Must fail
-
+    (40.00,1,1); -- silver / citadine --Must fail (duplicate id_formule + id_type_vehicule)
 
 INSERT INTO inclure (id_formule,id_service) VALUES
     (1,1), -- silver / Jantes

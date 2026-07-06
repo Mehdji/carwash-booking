@@ -6,15 +6,15 @@
 ===============================================================================
 */
 
-INSERT INTO utilisateur (prenom, nom, telephone, password_hash) VALUES
-    ('Mohamed', 'ALI', '0677898684', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$5Y8dkK7hFi6xuUNbsytCe6mRG387Eblxjr8dTo1tcAU'),
-    ('Dante', 'ALIGHIERI', '0687586325', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$3i8Pv7/tOYinNMT4Ek9omzxccq0pE2nNxtSPrgWwznM'),
-    ('Sofia', 'MARTIN', '0601020304', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$WJMS0f37JxkQbVf3FZ6W2L8Hf5cQhQ9lGQySAnM9mBw'),
-    ('Lucas', 'BERNARD', '0602030405', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$S5NfY8f8Qp8zTw3o9tK2pI9MVv0V7vWZV9i2eV6X4rA'),
-    ('Emma', 'DUBOIS', '0603040506', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$V3nq0n6rj8kC8QnW0M4jJfQ8bE9g3zK2wQ8fQf5U2rQ'),
-    ('Hugo', 'THOMAS', '0604050607', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$M4nV1hF9sN7QxX3Jk7wP9lA2xC6gQ9zN4kB8mW3qR1Y'),
-    ('Lea', 'ROBERT', '0605060708', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$K7jD8sQ3lM4nP9qR2wT5yH6uV1xZ8cB3mN6pQ2rW9tY'),
-    ('Noah', 'RICHARD', '0606070809', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$Q2wE4rT6yU8iO0pA3sD5fG7hJ9kL1zX3cV5bN7mM9qW');
+INSERT INTO utilisateur (prenom, nom, telephone, email, password_hash) VALUES
+    ('Mohamed', 'ALI', '0677898684', 'mohamed.ali@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$5Y8dkK7hFi6xuUNbsytCe6mRG387Eblxjr8dTo1tcAU'),
+    ('Dante', 'ALIGHIERI', '0687586325', 'dante.alighieri@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$3i8Pv7/tOYinNMT4Ek9omzxccq0pE2nNxtSPrgWwznM'),
+    ('Sofia', 'MARTIN', '0601020304', 'sofia.martin@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$WJMS0f37JxkQbVf3FZ6W2L8Hf5cQhQ9lGQySAnM9mBw'),
+    ('Lucas', 'BERNARD', '0602030405', 'lucas.bernard@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$S5NfY8f8Qp8zTw3o9tK2pI9MVv0V7vWZV9i2eV6X4rA'),
+    ('Emma', 'DUBOIS', '0603040506', 'emma.dubois@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$V3nq0n6rj8kC8QnW0M4jJfQ8bE9g3zK2wQ8fQf5U2rQ'),
+    ('Hugo', 'THOMAS', '0604050607', 'hugo.thomas@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$M4nV1hF9sN7QxX3Jk7wP9lA2xC6gQ9zN4kB8mW3qR1Y'),
+    ('Lea', 'ROBERT', '0605060708', 'lea.robert@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$K7jD8sQ3lM4nP9qR2wT5yH6uV1xZ8cB3mN6pQ2rW9tY'),
+    ('Noah', 'RICHARD', '0606070809', 'noah.richard@example.com', '$argon2id$v=19$m=19456,t=2,p=1$YWY5NWUyYjJjODQ1YzJlODc4OWZlNmEwN2Y2MjU1M2Q$Q2wE4rT6yU8iO0pA3sD5fG7hJ9kL1zX3cV5bN7mM9qW');
 
 INSERT INTO parrainage (code_ou_lien,statut,id_parrain,id_parraine) VALUES
     ('REF-MOHAMED-SOFIA','valide',1,3),
@@ -27,23 +27,23 @@ INSERT INTO type_vehicule (libelle) VALUES
     ('suv');
 
 INSERT INTO formule (nom,description,duree_estimee_minutes) VALUES
-    ('silver','Jantes,Shampoing,SÃ©chage,Vitres,Aspirateur',90),
-    ('platinium','Jantes,Pneus,Shampoing,Cire de finition,SÃ©chage,Vitres,Plastiques,Tapis,Shampouinage,Tissus',120),
-    ('gold','Jantes,Shampoing,Cire de finition,SÃ©chage,Vitres,Tapis / Moquette',150);
+    ('silver','Jantes,Shampoing,Séchage,Vitres,Aspirateur',90),
+    ('platinum','Jantes,Pneus,Shampoing ,Cire de finition,Séchage,Vitres,Plastiques,Tapis,Shampouinage,tissus',120),
+    ('gold','Jantes,Shampoing,Cire de finition ,Séchage ,Vitres,Tapis / Moquette ',150);
 
 INSERT INTO service (nom,description) VALUES
-    ('Jantes','Nettoyage des jantes pour retirer saletÃ©s et poussiÃ¨res de frein.'),
+    ('Jantes','Nettoyage des jantes pour retirer saletés et poussières de frein.'),
     ('Shampoing','Lavage carrosserie au shampoing auto pour nettoyer en douceur.'),
-    ('SÃ©chage','SÃ©chage manuel pour Ã©viter traces eau et marques.'),
-    ('Vitres','Nettoyage intÃ©rieur et extÃ©rieur des vitres pour une visibilitÃ© nette.'),
-    ('Aspirateur','Aspiration de habitacle, siÃ¨ges et zones difficiles accÃ¨s.'),
+    ('Séchage','Séchage manuel pour éviter traces eau et marques.'),
+    ('Vitres','Nettoyage intérieur et extérieur des vitres pour une visibilité nette.'),
+    ('Aspirateur','Aspiration de habitacle, sièges et zones difficiles accès.'),
     ('Pneus','Nettoyage des flancs et finition des pneus.'),
     ('Cire de finition','Application une cire de finition pour brillance et protection.'),
-    ('Plastiques','Nettoyage et ravivage des plastiques intÃ©rieurs.'),
-    ('Tapis','Nettoyage des tapis de sol pour enlever poussiÃ¨re et taches lÃ©gÃ¨res.'),
+    ('Plastiques','Nettoyage et ravivage des plastiques intérieurs.'),
+    ('Tapis','Nettoyage des tapis de sol pour enlever poussière et taches légères.'),
     ('Shampouinage','Nettoyage en profondeur des textiles par shampouinage.'),
-    ('Tissus','Entretien des surfaces en tissu pour rafraÃ®chir habitacle.'),
-    ('Tapis / Moquette','Nettoyage combinÃ© des tapis et de la moquette intÃ©rieure.');
+    ('Tissus','Entretien des surfaces en tissu pour rafraîchir habitacle.'),
+    ('Tapis / Moquette','Nettoyage combiné des tapis et de la moquette intérieure.');
 
 INSERT INTO vehicule (marque,modele,immatriculation,id_utilisateur,id_type_vehicule) VALUES
     ('renault','clio','AC-613-ET',1,1),
