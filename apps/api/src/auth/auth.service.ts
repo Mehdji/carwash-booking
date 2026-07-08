@@ -1,12 +1,12 @@
-import { BadRequestException, ConflictException, HttpException, HttpStatus, Injectable, NotFoundException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UtilisateursService } from '../utilisateurs/utilisateurs.service';
-import { Prisma, Utilisateur } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PasswordService } from './password.service';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
-import { error } from 'console';
 import { UtilisateurPublic } from '../utilisateurs/utilisateur.types';
+import { JWT_REFRESH_SERVICE } from './auth.constants';
 
 
 @Injectable()
@@ -14,12 +14,13 @@ export class AuthService {
     constructor(
         private readonly utilisateurService: UtilisateursService,
         private readonly password: PasswordService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        @Inject(JWT_REFRESH_SERVICE) private readonly jwtRefreshService: JwtService
     ) { }
 
 
 
-    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string }> {
+    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string, refresh_token: string }> {
         const user = await this.utilisateurService.findUtilisateurAvecHashParEmail(email);
 
         if (!user) {
@@ -45,6 +46,7 @@ export class AuthService {
 
         return {
             access_token: await this.jwtService.signAsync(payload),
+            refresh_token: await this.jwtRefreshService.signAsync(payload)
         };
     }
 
