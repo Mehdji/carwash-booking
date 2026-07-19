@@ -16,7 +16,7 @@ export class UtilisateursService {
     async utilisateur(utilisateurWhereUniqueInput: Prisma.UtilisateurWhereUniqueInput): Promise<UtilisateurPublic | null> {
         return this.prisma.utilisateur.findUnique({
             where: utilisateurWhereUniqueInput,
-            omit: { passwordHash: true, }
+            omit: { passwordHash: true, refreshTokenHash: true, }
         });
     }
 
@@ -36,7 +36,7 @@ export class UtilisateursService {
             cursor,
             where,
             orderBy,
-            omit: { passwordHash: true, }
+            omit: { passwordHash: true, refreshTokenHash: true, }
         });
     }
 
@@ -54,7 +54,7 @@ export class UtilisateursService {
                 passwordHash: passwordHash,
                 role: RoleUtilisateur.CLIENT
             },
-            omit: { passwordHash: true, }
+            omit: { passwordHash: true, refreshTokenHash: true, }
         });
     }
 
@@ -66,7 +66,7 @@ export class UtilisateursService {
         return this.prisma.utilisateur.update({
             where,
             data,
-            omit: { passwordHash: true, }
+            omit: { passwordHash: true, refreshTokenHash: true, }
         }
         )
     }
@@ -74,7 +74,7 @@ export class UtilisateursService {
     async deleteUtilisateur(where: Prisma.UtilisateurWhereUniqueInput): Promise<UtilisateurPublic> {
         return this.prisma.utilisateur.delete({
             where,
-            omit: { passwordHash: true, }
+            omit: { passwordHash: true, refreshTokenHash: true, }
         });
 
     }
@@ -82,7 +82,7 @@ export class UtilisateursService {
     async utilisateurParEmail(email: Prisma.UtilisateurWhereUniqueInput): Promise<UtilisateurPublic | null> {
         return this.prisma.utilisateur.findUnique({
             where: email,
-            omit: { passwordHash: true, }
+            omit: { passwordHash: true, refreshTokenHash: true, }
         });
 
     }
@@ -94,12 +94,20 @@ export class UtilisateursService {
         });
     }
 
-    getRefreshTokenHashParUtilisateur(id: Prisma.UtilisateurWhereUniqueInput): Promise<Pick<Utilisateur, 'refreshTokenHash'> | null> {
+    async getRefreshTokenHashParUtilisateur(id: Prisma.UtilisateurWhereUniqueInput): Promise<Pick<Utilisateur, 'refreshTokenHash'> | null> {
         return this.prisma.utilisateur.findUnique({
             where: id,
             select: { refreshTokenHash: true }
         }
         )
+    }
+
+    async setRefreshToken(id: Prisma.UtilisateurWhereUniqueInput, tokenHash: string): Promise<void> {
+        await this.prisma.utilisateur.update({
+            where: id,
+            data: { refreshTokenHash: tokenHash },
+            select: { idUtilisateur: true }
+        });
     }
 
 

@@ -1,5 +1,8 @@
 import { Prisma } from "@prisma/client";
 
 export type UtilisateurPublic = Prisma.UtilisateurGetPayload<{
-    omit: { passwordHash: true };
+    omit: {
+        passwordHash: true,
+        refreshTokenHash: true,
+    };
 }>;
