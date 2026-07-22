@@ -1,13 +1,48 @@
-import { ConflictException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, HttpException, Inject, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
 import { UtilisateursService } from '../utilisateurs/utilisateurs.service';
-import { Prisma } from '@prisma/client';
+import { $Enums, Prisma } from '@prisma/client';
 import { PasswordService } from './password.service';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterDto } from './dto/register.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import { UtilisateurPublic } from '../utilisateurs/utilisateur.types';
 import { JWT_REFRESH_SERVICE } from './auth.constants';
+import { createHash } from 'crypto';
+import e from 'express';
+import { response } from 'express';
+import { access } from 'fs';
 
+
+
+
+
+
+type Payload = {
+    sub: number,
+    role: $Enums.RoleUtilisateur
+}
+
+type TokenPayload = Payload & {
+    iat: number,
+    exp: number
+}
+
+type Tokens = {
+    accessToken: string,
+    refreshToken: string
+}
+
+type TokenExpiryDatesInS = {
+    refreshTokenPayload: TokenPayload,
+    accessTokenPayload: TokenPayload
+
+}
+
+type TokenExpiryDatesInMs = {
+    expDateRefreshToken: Date,
+    expDateAccessToken: Date
+
+}
 
 @Injectable()
 export class AuthService {
@@ -18,9 +53,54 @@ export class AuthService {
         @Inject(JWT_REFRESH_SERVICE) private readonly jwtRefreshService: JwtService
     ) { }
 
+    async generateTokens(payload: Payload): Promise<Tokens> {
+        const accessToken = await this.jwtService.signAsync(payload);
+        const refreshToken = await this.jwtRefreshService.signAsync(payload);
+        return {
+            accessToken: accessToken,
+            refreshToken: refreshToken
+        }
+    }
+
+    hashRefreshToken(refreshToken: string): string {
+        const hashRefreshToken = createHash("sha256").update(refreshToken).digest("hex");
+        return hashRefreshToken
+    }
+
+    decodeTokens(accessToken: string, refreshToken: string): { accessTokenPayload: TokenPayload, refreshTokenPayload: TokenPayload } {
+        const accessTokenPayload = this.jwtService.decode<TokenPayload>(accessToken);
+        const refreshTokenPayload = this.jwtService.decode<TokenPayload>(refreshToken);
+        return {
+            accessTokenPayload: accessTokenPayload,
+            refreshTokenPayload: refreshTokenPayload
+        }
+    }
+
+    extractExpiryDates(tokensPayload: TokenExpiryDatesInS): TokenExpiryDatesInMs {
+        const expDateAccessToken = new Date(tokensPayload.accessTokenPayload.exp * 1000);
+        const expDateRefreshToken = new Date(tokensPayload.refreshTokenPayload.exp * 1000);
 
 
-    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string, refresh_token: string }> {
+        return {
+            expDateRefreshToken: expDateRefreshToken,
+            expDateAccessToken: expDateAccessToken
+        }
+    }
+
+    decodeAndExtractExpiryDates(tokens: Tokens): { expDateRefreshToken: Date, expDateAccessToken: Date } {
+
+
+
+        const { accessTokenPayload, refreshTokenPayload } = this.decodeTokens(tokens.accessToken, tokens.refreshToken);
+
+        const { expDateRefreshToken, expDateAccessToken } = this.extractExpiryDates({ accessTokenPayload, refreshTokenPayload })
+        return {
+            expDateAccessToken: expDateAccessToken,
+            expDateRefreshToken: expDateRefreshToken
+        }
+    }
+
+    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string, access_token_exp: Date, refresh_token: string, refresh_token_exp: Date }> {
         const user = await this.utilisateurService.findUtilisateurAvecHashParEmail(email);
 
         if (!user) {
@@ -43,11 +123,32 @@ export class AuthService {
             role: user.role
         };
 
+        const { accessToken, refreshToken } = await this.generateTokens(payload);
+        const hashRefreshToken = this.hashRefreshToken(refreshToken);
+        const { expDateAccessToken, expDateRefreshToken } = this.decodeAndExtractExpiryDates({ accessToken, refreshToken });
 
+        try {
+            await this.utilisateurService.setRefreshToken(
+                { idUtilisateur: user.idUtilisateur }
+                , hashRefreshToken
+            );
+        } catch (error) {
+            throw new InternalServerErrorException(error, "Refresh Token error");
+        }
+        /*
+        response.cookie("Authentification", accessToken, {
+            httpOnly: true,
+            expires: accessTokenPayload.exp
+        })
+          */
         return {
-            access_token: await this.jwtService.signAsync(payload),
-            refresh_token: await this.jwtRefreshService.signAsync(payload)
+            access_token: accessToken,
+            access_token_exp: expDateAccessToken,
+            refresh_token: refreshToken,
+            refresh_token_exp: expDateRefreshToken
+
         };
+
     }
 
     async register(dto: RegisterDto): Promise<{ access_token: string; }> {
