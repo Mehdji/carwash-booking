@@ -44,6 +44,13 @@ type TokenExpiryDatesInMs = {
 
 }
 
+type TokenUpdateData = {
+    userId: number,
+    hashRefreshToken: string
+}
+
+
+
 @Injectable()
 export class AuthService {
     constructor(
@@ -100,6 +107,17 @@ export class AuthService {
         }
     }
 
+    async updateRefreshTokenHash(tokenUpdateData: TokenUpdateData): Promise<void> {
+        try {
+            await this.utilisateurService.setRefreshToken(
+                { idUtilisateur: tokenUpdateData.userId }
+                , tokenUpdateData.hashRefreshToken
+            );
+        } catch (error) {
+            throw new InternalServerErrorException(error, "Refresh Token error");
+        }
+    }
+
     async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string, access_token_exp: Date, refresh_token: string, refresh_token_exp: Date }> {
         const user = await this.utilisateurService.findUtilisateurAvecHashParEmail(email);
 
@@ -126,15 +144,10 @@ export class AuthService {
         const { accessToken, refreshToken } = await this.generateTokens(payload);
         const hashRefreshToken = this.hashRefreshToken(refreshToken);
         const { expDateAccessToken, expDateRefreshToken } = this.decodeAndExtractExpiryDates({ accessToken, refreshToken });
+        const userId = user.idUtilisateur;
+        await this.updateRefreshTokenHash({ userId, hashRefreshToken });
 
-        try {
-            await this.utilisateurService.setRefreshToken(
-                { idUtilisateur: user.idUtilisateur }
-                , hashRefreshToken
-            );
-        } catch (error) {
-            throw new InternalServerErrorException(error, "Refresh Token error");
-        }
+
         /*
         response.cookie("Authentification", accessToken, {
             httpOnly: true,
