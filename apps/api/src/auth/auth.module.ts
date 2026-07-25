@@ -5,6 +5,7 @@ import { UtilisateursModule } from '../utilisateurs/utilisateurs.module';
 import { PasswordService } from './password.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { JWT_REFRESH_SERVICE } from './auth.constants';
+import { TokenService } from './token/token.service';
 
 
 const jwtSecret = process.env.JWT_SECRET;
@@ -34,6 +35,7 @@ if (!jwtRefreshSecret) {
         signOptions: { expiresIn: '7d' },
       }),
     },
+    TokenService,
   ],
 })
 export class AuthModule { }
