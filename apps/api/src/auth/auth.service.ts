@@ -1,6 +1,6 @@
 import { ConflictException, InternalServerErrorException, Injectable, NotFoundException, UnauthorizedException, Response } from '@nestjs/common';
 import { UtilisateursService } from '../utilisateurs/utilisateurs.service';
-import { Prisma } from '@prisma/client';
+import { Prisma, Utilisateur } from '@prisma/client';
 import { PasswordService } from './password.service';
 import { RegisterDto } from './dto/register.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
@@ -17,7 +17,6 @@ export class AuthService {
     constructor(
         private readonly utilisateurService: UtilisateursService,
         private readonly password: PasswordService,
-
         private readonly tokenService: TokenService,
 
     ) { }
@@ -33,7 +32,7 @@ export class AuthService {
         }
     }
 
-    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string, access_token_exp: Date, refresh_token: string, refresh_token_exp: Date }> {
+    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string, access_token_exp: Date, refresh_token: string, refresh_token_exp: Date, user_profile: UtilisateurPublic | null }> {
         const user = await this.utilisateurService.findUtilisateurAvecHashParEmail(email);
 
         if (!user) {
@@ -63,14 +62,15 @@ export class AuthService {
         await this.updateRefreshTokenHash({ userId, hashRefreshToken });
 
 
-
+        const userProfile = await this.utilisateurService.utilisateur({ idUtilisateur: user.idUtilisateur });
 
 
         return {
             access_token: accessToken,
             access_token_exp: expDateAccessToken,
             refresh_token: refreshToken,
-            refresh_token_exp: expDateRefreshToken
+            refresh_token_exp: expDateRefreshToken,
+            user_profile: userProfile
 
         };
 
