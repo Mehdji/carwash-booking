@@ -1,13 +1,13 @@
-import { ConflictException, InternalServerErrorException, Injectable, NotFoundException, UnauthorizedException, Response } from '@nestjs/common';
+import { ConflictException, InternalServerErrorException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { UtilisateursService } from '../utilisateurs/utilisateurs.service';
-import { Prisma, Utilisateur } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { PasswordService } from './password.service';
 import { RegisterDto } from './dto/register.dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/client';
 import { UtilisateurPublic } from '../utilisateurs/utilisateur.types';
 import { TokenService } from './token/token.service';
 import { TokenUpdateData } from "./token/types/token.types"
-
+import type { AuthResult } from "./types/auth.types"
 
 
 
@@ -32,7 +32,7 @@ export class AuthService {
         }
     }
 
-    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<{ access_token: string, access_token_exp: Date, refresh_token: string, refresh_token_exp: Date, user_profile: UtilisateurPublic | null }> {
+    async signIn(email: Prisma.UtilisateurWhereUniqueInput, pass: string): Promise<AuthResult> {
         const user = await this.utilisateurService.findUtilisateurAvecHashParEmail(email);
 
         if (!user) {
@@ -76,7 +76,7 @@ export class AuthService {
 
     }
 
-    async register(dto: RegisterDto): Promise<{ access_token: string; }> {
+    async register(dto: RegisterDto): Promise<AuthResult> {
 
 
         try {

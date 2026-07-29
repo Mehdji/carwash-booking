@@ -5,6 +5,7 @@ import { AuthGuard } from './auth.guard';
 import type { Response } from 'express';
 import { RegisterDto } from './dto/register.dto';
 import { UtilisateurPublic } from '../utilisateurs/utilisateur.types';
+import type { AuthResponse, RefreshCookieData } from './types/auth.types';
 
 @Controller('/api/auth')
 export class AuthController {
@@ -12,36 +13,34 @@ export class AuthController {
 
     }
 
+    private updateRefreshTokenCookie(data: RefreshCookieData, response: Response): void {
+        response.cookie("refreshToken", data.refresh_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: "lax",
+            /*Si api et front sur sites différents
+            sameSite: "none",
+            secure: true,
+            */
+            expires: data.refresh_token_exp
+        })
+
+    }
+
     @HttpCode(HttpStatus.OK)
     @Post('login')
-    async signIn(@Body() signInDto: SignInDto, @Res({ passthrough: true }) response: Response): Promise<{ access_token: string, user_profile: UtilisateurPublic | null }> {
-        const { access_token, access_token_exp, refresh_token, refresh_token_exp, user_profile } = await this.authService.signIn({ email: signInDto.email }, signInDto.password);
-
-        response.cookie("refreshToken", refresh_token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: "lax",
-            /*Si api et front sur sites différents
-            sameSite: "none",
-            secure: true,
-            */
-            expires: refresh_token_exp
-        })
-
-        response.cookie("accessToken", access_token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: "lax",
-            /*Si api et front sur sites différents
-            sameSite: "none",
-            secure: true,
-            */
-            expires: access_token_exp
-        })
+    async signIn(@Body() signInDto: SignInDto, @Res({ passthrough: true }) response: Response): Promise<AuthResponse> {
+        const { access_token, refresh_token, refresh_token_exp, user_profile } = await this.authService.signIn(
+            { email: signInDto.email },
+            signInDto.password
+        );
+        const cookieData = { refresh_token, refresh_token_exp };
+        this.updateRefreshTokenCookie(cookieData, response);
 
         return {
-            access_token: access_token,
-            user_profile
+
+            user_profile,
+            access_token
         }
 
     }
@@ -53,8 +52,16 @@ export class AuthController {
     }
 
     @Post('register')
-    register(@Body() registerdto: RegisterDto): Promise<{ access_token: string; }> {
-        return this.authService.register(registerdto);
+    async register(@Body() registerdto: RegisterDto, @Res({ passthrough: true }) response: Response): Promise<AuthResponse> {
+        const { access_token, refresh_token, refresh_token_exp, user_profile } = await this.authService.register(registerdto);
+        const cookieData = { refresh_token, refresh_token_exp };
+        this.updateRefreshTokenCookie(cookieData, response);
+
+        return {
+            user_profile,
+            access_token
+        }
+
     }
 }
 
