@@ -29,7 +29,7 @@
  - [x] inclure
 ===============================================================================
 */
--- Password (plaintext): Mohamed#A95Z1
+-- Password (plaintext): Mohamed#A95Z1  (pas de 23 commes les autres pass)
 INSERT INTO utilisateur (prenom, nom, email, telephone, password_hash) VALUES
     ('Mohamed', 'ALI', 'mohamed.ali@example.com', '0677898684', '$argon2id$v=19$m=19456,t=2,p=1$WrGG+vF33lkZi/D3+0pPTA$T0hRuQ4JKdSrQAnc2aG5er/5lrdUMPilRhepsq7MyGg');
 

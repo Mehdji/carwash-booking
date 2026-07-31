@@ -2,6 +2,7 @@ import { type ChangeEvent, type FormEvent, useState } from "react";
 import Footer from "../../components/footer/footer";
 import { fetchLogin } from "../../api/auth.api";
 import TextField from "../../components/textfield/textfield";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -12,13 +13,14 @@ type LoginFormData = {
 
 
 
-
 const Login = () => {
   const [isFailed, setIsFailed] = useState(false);
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate();
 
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +33,14 @@ const Login = () => {
 
     const response = await fetchLogin(formData);
     setIsFailed(!response.ok)
+
+    if (!isFailed) {
+      console.log(isFailed);
+      localStorage.setItem("accessToken", response.data);
+      console.log(localStorage.getItem("accessToken"));
+      navigate("/dashboard");
+
+    }
     //TODO write a condition where ok is checked and login message is ok or failed.
     //Object in auth.api return object responseLoginApi with ok bool status str code and data str
     console.log(response);
