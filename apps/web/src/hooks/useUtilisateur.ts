@@ -18,8 +18,9 @@ export const useUtilisateur = () => {
                 setLoading(false);
             }
 
-            loadUser();
-        }
+
+        };
+        loadUser();
     }, []);
     return { user, loading, error }
 

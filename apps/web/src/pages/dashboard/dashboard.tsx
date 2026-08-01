@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
-import type { Utilisateur } from "../../types/utilisateur.types";
-import { getUser } from "../../api/auth.api";
 
+import { useUtilisateur } from "../../hooks/useUtilisateur"
 
 
 const Dashboard = () => {
-    const [user, setUser] = useState<Utilisateur | null>(null);
-    useEffect(() => {
-        const loadUser = async () => {
-            try {
-                const user = await getUser();
-                setUser(user);
-            } catch (error) {
-                console.error(error);
-            }
+    //const [user, setUser] = useState<Utilisateur | null>(null);
+    const { user, error, loading } = useUtilisateur();
 
-        }
 
-        loadUser();
-    }, [])
+
+    if (loading) {
+        return <div>Chargement...</div>;
+    }
+
+    if (error) {
+        return <div>Sorry, something went wrong...</div>;
+    }
+
+    if (!user) {
+        return <div>Utilisateur introuvable.</div>;
+    }
+
     return (
         <div>
-            {user ? `Bonjour ${user.prenom ?? ""} ${user.nom ?? ""}` : "Chargement..."}
+            Bonjour {user.prenom} {user.nom}
         </div>
-    )
-}
+    );
+};
 
 export default Dashboard;
